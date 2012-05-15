@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Vimeo Carousel</title>
+	
+	<script src="scripts/vimeowrap.js"></script>
+	<script src="scripts/vimeowrap.carousel.js"></script>
+</head>
+<body>
+
+	<div id="container"></div>
+	<script>
+		vimeowrap('container').setup({
+			width: 460,
+			height: 300,
+			color: '009900',
+			title: false,
+			byline: false,
+			portrait: false,
+			autoplay: false,
+			urls: [
+				//'http://vimeo.com/api/v2/video/28157923.json',
+				//'http://vimeo.com/21119033',
+				//'http://vimeo.com/api/v2/luwes/videos.json',
+				'http://vimeo.com/user3125741'
+			],
+			plugins: {
+				'carousel': {
+					position: 'bottom',
+					width: 460,
+					height: 118,
+					offsetx: 50,
+					offsety: 10,
+					autoplay: false,
+					visible: 3
+				}
+			}
+		});
+	</script>
+
+<!--
+    <iframe src="http://player.vimeo.com/video/28157923?title=0&amp;byline=0&amp;portrait=0&amp;color=009900&amp;api=1&amp;player_id=player_0" width="400" height="300" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+
+	<div id="container2"></div>
+	<script>
+		vimeowrap('container2').setup({
+			width: 460,
+			height: 300,
+			//color: 'ffff00',
+			title: false,
+			byline: false,
+			portrait: false,
+			autoplay: false,
+			urls: [
+				'http://vimeo.com/api/v2/video/28157923.json',
+				//'http://vimeo.com/21119033',
+				//'http://vimeo.com/api/v2/luwes/videos.json',
+				//'http://vimeo.com/user3125741'
+			]
+		});
+	</script>
+
+	<div id="container3"></div>
+	<script>
+		vimeowrap('container3').setup({
+			width: 460,
+			height: 300,
+			//color: 'ffff00',
+			title: false,
+			byline: false,
+			portrait: false,
+			autoplay: false,
+			urls: [
+				'http://vimeo.com/api/v2/video/28157923.json',
+				//'http://vimeo.com/21119033',
+				//'http://vimeo.com/api/v2/luwes/videos.json',
+				//'http://vimeo.com/user3125741'
+			]
+		});
+	</script>
+	
+	<br/><a href="javascript:void(0)" onclick="vimeowrap('container').play();">Play</a>
+	-->
+</body>
+</html>
