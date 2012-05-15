@@ -42,7 +42,8 @@
 
 			config = vimeo.utils.extend(options, config);
 			
-			var style = "@font-face {font-family:'Pictish'; src:url('fonts/pictish.eot'); src:url('fonts/pictish.eot?#iefix') format('embedded-opentype'), url('fonts/pictish.woff') format('woff'), url('fonts/pictish.ttf') format('truetype'), url('fonts/pictish.svg#PictishRegular') format('svg'); font-weight:normal; font-style:normal;}" +
+			var fontdir = config.fontdir || "https://github.com/luwes/vimeowrap.js/raw/master/fonts/";
+			var style = "@font-face {font-family:'Pictish'; src:url('" + fontdir + "pictish.eot'); src:url('" + fontdir + "pictish.eot?#iefix') format('embedded-opentype'), url('" + fontdir + "pictish.woff') format('woff'), url('" + fontdir + "pictish.ttf') format('truetype'), url('" + fontdir + "pictish.svg#PictishRegular') format('svg'); font-weight:normal; font-style:normal;}" +
 						"#{{id}} a {text-decoration:none;}" +
 						"#{{id}} a:active, #{{id}} a:focus {outline:none;}" +
 						"#{{id}} {font:bold 12px/14px helvetica,arial,sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);}" +
