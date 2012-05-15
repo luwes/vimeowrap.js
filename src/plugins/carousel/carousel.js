@@ -149,14 +149,13 @@
 			
 			var listWidth = config.width - config.offsetx * 2;
 			_this.visible = config.visible > 0 ? config.visible : Math.floor(listWidth / config.thumb.width);
-			var marginRight = (listWidth - _this.visible * config.thumb.width) / Math.max(_this.visible-1, 1);
+			var marginRight = Math.round((listWidth - _this.visible * config.thumb.width) / Math.max(_this.visible-1, 1));
 			
 			var list = document.getElementById(div.id+'_list');
 			list.innerHTML = html.join('');
 			
 			var elements = list.getElementsByTagName('li');
 			for (i = 0; i < elements.length; i++) {
-			
 				var li = elements[i];
 				vimeo.utils.css(li, {
 					styleFloat: 'left',
@@ -165,12 +164,12 @@
 					marginRight: marginRight
 				});
 			}
-			
-			vimeo.utils.css(list, {
-				width: playlist.length * (config.thumb.width + marginRight)
-			});
 
 			_this.offset = config.thumb.width + marginRight;
+			
+			vimeo.utils.css(list, {
+				width: playlist.length * _this.offset
+			});
 		}
 		
 		function _loadOnClick(e) {
