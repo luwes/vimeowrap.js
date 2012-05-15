@@ -10,18 +10,10 @@
 	vimeo.carousel = function(api, config) {
 		var _this = this;
 		var _playlist = null;
-		
-		this.config = config;
-		this.x = 0;
-		this.visible = 0;
-		this.position = 0;
-		this.offset = 0;
-		this.length = 0;
-		TWEEN.start();
 
 		var div;
 		var list;
-
+		
 		var options = {
 			position: 'bottom',
 			width: api.config.width,
@@ -38,9 +30,16 @@
 			}
 		};
 
-		this.setup = function() {
+		config = vimeo.utils.extend(options, config);
+		this.config = config;
+		this.x = 0;
+		this.visible = 0;
+		this.position = 0;
+		this.offset = 0;
+		this.length = 0;
+		TWEEN.start();
 
-			config = vimeo.utils.extend(options, config);
+		this.setup = function() {
 			
 			var fontdir = config.fontdir || "https://github.com/luwes/vimeowrap.js/raw/master/fonts/";
 			var style = "@font-face {font-family:'Pictish'; src:url('" + fontdir + "pictish.eot'); src:url('" + fontdir + "pictish.eot?#iefix') format('embedded-opentype'), url('" + fontdir + "pictish.woff') format('woff'), url('" + fontdir + "pictish.ttf') format('truetype'), url('" + fontdir + "pictish.svg#PictishRegular') format('svg'); font-weight:normal; font-style:normal;}" +
