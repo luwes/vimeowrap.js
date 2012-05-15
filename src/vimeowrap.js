@@ -29,6 +29,9 @@ var vimeowrap = function(identifier) {
 		this.setup = function(options) {
 		
 			var defaultConfig = {
+				width: 480,
+				height: 280,
+				color: "00adef",
 				api: true,
 				player_id: vimeo.utils.uniqueId('player_')
 			};
