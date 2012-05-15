@@ -45,7 +45,7 @@
 			var style = "@font-face {font-family:'Pictish'; src:url('fonts/pictish.eot'); src:url('fonts/pictish.eot?#iefix') format('embedded-opentype'), url('fonts/pictish.woff') format('woff'), url('fonts/pictish.ttf') format('truetype'), url('fonts/pictish.svg#PictishRegular') format('svg'); font-weight:normal; font-style:normal;}" +
 						"#{{id}} a {text-decoration:none;}" +
 						"#{{id}} a:active, #{{id}} a:focus {outline:none;}" +
-						"#{{id}} {font:bold 12px/14px helvetica,arial,sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);}" +
+						"#{{id}} {font:bold 12px/14px helvetica,arial,sans-serif;line-height:14px;-webkit-tap-highlight-color:rgba(0,0,0,0);}" +
 						"#{{id}} ul li {overflow:hidden;text-align:center;}" +
 						"#{{id}} ul li a {color:#{{color}};}" +
 						"#{{id}} ul li a img {border:none;width:{{thumb_width}}px;height:{{thumb_height}}px;}" +
