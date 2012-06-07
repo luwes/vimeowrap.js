@@ -37,3 +37,32 @@ vimeowrap is an easy to use Vimeo player embedder that can be extended with plug
 	});
 </script>
 ```
+
+## Configuration
+<table>
+<thead><tr>
+	<th>parameter</th> <th>default</th> <th>description</th>
+</tr></thead>
+<tbody>
+	<tr>
+		<th>width</th>
+		<td>480</td>
+		<td>Width of the vimeo player</td>
+	</tr>
+	<tr>
+		<th>height</th>
+		<td>280</td>
+		<td>Height of the vimeo player</td>
+	</tr>
+	<tr>
+		<th>color</th>
+		<td>00adef</td>
+		<td>Color of the vimeo player</td>
+	</tr>
+	<tr>
+		<th>byline</th>
+		<td>true</td>
+		<td>Show the byline on the video</td>
+	</tr>
+	</tbody>
+</table>
