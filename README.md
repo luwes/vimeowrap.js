@@ -19,6 +19,7 @@ vimeowrap is an easy to use Vimeo player embedder that can be extended with plug
 		]
 	});
 </script>
+```
 
 ### Carousel Plugin
 ``` html
@@ -35,3 +36,4 @@ vimeowrap is an easy to use Vimeo player embedder that can be extended with plug
 		}
 	});
 </script>
+```
