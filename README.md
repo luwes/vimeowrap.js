@@ -41,9 +41,9 @@ vimeowrap is an easy to use Vimeo player embedder that can be extended with plug
 ## Configuration
 <table>
 <thead><tr>
-	<th><small>parameter</small></th>
-	<th><small>default</small></th>
-	<th><small>description</small></th>
+	<th>parameter</th>
+	<th>default</th>
+	<th>description</th>
 </tr></thead>
 <tbody>
 	<tr>
