@@ -45,39 +45,60 @@ vimeowrap is an easy to use Vimeo player embedder that can be extended with plug
 </tr></thead>
 <tbody>
 	<tr>
-		<th>`urls`</th>
+		<th>urls</th>
 		<td></td>
-		<td>(required) Array with the Vimeo URL's. User or video URL's are supported</td>
+		<td>(required) Array with the Vimeo URL's. User or video URL's are supported.</td>
 	</tr>
 	<tr>
 		<th>width</th>
 		<td>480</td>
-		<td>Width of the Vimeo player</td>
+		<td>Width of the Vimeo player.</td>
 	</tr>
 	<tr>
 		<th>height</th>
 		<td>280</td>
-		<td>Height of the Vimeo player</td>
+		<td>Height of the Vimeo player.</td>
 	</tr>
 	<tr>
 		<th>color</th>
 		<td>00adef</td>
-		<td>Specify the color of the video controls</td>
+		<td>Specify the color of the video controls.</td>
 	</tr>
 	<tr>
 		<th>byline</th>
 		<td>true</td>
-		<td>Show the byline on the video</td>
+		<td>Show the byline on the video.</td>
 	</tr>
 	<tr>
 		<th>title</th>
 		<td>true</td>
-		<td>Show the title on the video</td>
+		<td>Show the title on the video.</td>
 	</tr>
 	<tr>
 		<th>portrait</th>
 		<td>true</td>
-		<td>Show the user's portrait on the video</td>
+		<td>Show the user's portrait on the video.</td>
+	</tr>
+	<tr>
+		<th>autoplay</th>
+		<td>false</td>
+		<td>Automatically start playback of the video.</td>
+	</tr>
+	<tr>
+		<th>item</th>
+		<td>0</td>
+		<td>Playlist item that should start to play. Use this to start the player with a specific item instead of with the first item.</td>
+	</tr>
+	<tr>
+		<th>repeat</th>
+		<td>none</td>
+		<td>
+			What to do when the video has ended. Has several options:
+			* none: do nothing (stop playback) whenever a video is completed.
+			* list: play each video in the playlist once, stop at the end.
+			* always: continously play the video (or all files in the playlist).
+			* single: continously repeat the current video in the playlist.
+		</td>
 	</tr>
 	</tbody>
 </table>
