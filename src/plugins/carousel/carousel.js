@@ -190,7 +190,9 @@
 				if (children[i] === target) break;
 			}
 			
-			api.playlistItem(index, config.autoplay);
+			if (index !== api.config.item) {
+				api.playlistItem(index, config.autoplay);
+			}
 			return false;
 		}
 

@@ -37,23 +37,23 @@ var vimeowrap = function(identifier) {
 				api: true,
 				player_id: vimeo.utils.uniqueId('player_')
 			};
-			this.config = vimeo.utils.extend(defaultConfig, options);
+			_this.config = vimeo.utils.extend(defaultConfig, options);
 			_reset();
 			
-			var height = this.config.height;
+			var height = _this.config.height;
 			var displayTop = 0;
-			for (var key in this.config.plugins) {
+			for (var key in _this.config.plugins) {
 				if (typeof vimeo[key] === "function") {
-					this.plugins[key] = new vimeo[key](this, this.config.plugins[key]);
+					_this.plugins[key] = new vimeo[key](_this, _this.config.plugins[key]);
 					
-					this.plugins[key].config['y'] = height;
-					height += this.plugins[key].config['height'];
-					if (this.plugins[key].config['position'] === "top") {
-						this.plugins[key].config['y'] = displayTop;
-						displayTop += this.plugins[key].config['height'];
+					_this.plugins[key].config['y'] = height;
+					height += _this.plugins[key].config['height'];
+					if (_this.plugins[key].config['position'] === "top") {
+						_this.plugins[key].config['y'] = displayTop;
+						displayTop += _this.plugins[key].config['height'];
 					}
 
-					this.plugins[key].setup();
+					_this.plugins[key].setup();
 				}
 			}
 			
@@ -66,9 +66,9 @@ var vimeowrap = function(identifier) {
 				top: displayTop
 			});
 			
-			this.events.playlist.add(_playlistLoaded);
-			var loader = new vimeo.playlistloader(this);
-			loader.load(this.config.urls);
+			_this.events.playlist.add(_playlistLoaded);
+			var loader = new vimeo.playlistloader(_this);
+			loader.load(_this.config.urls);
 		};
 
 		function _playlistLoaded(playlist) {
@@ -163,38 +163,34 @@ var vimeowrap = function(identifier) {
 		}
 		
 		this.playlistItem = function(index, autoplay) {
-
-			if (index !== _this.config.item) {
-				
-				this.pause();
-
-				_this.config.item = index;
 			
-				vimeo.utils.css(_this.player, {
-					display: 'none'
-				});
+			_this.config.item = index;
 
-				if (typeof autoplay === "boolean") {
-					this.config.autoplay = autoplay;
-				}
-				
-				var item = _playlist[index];
-				var url = 'http://player.vimeo.com/video/' + item.id + '?';
-				var allowed = [	'byline', 'title', 'portrait', 'color',
-								'autoplay', 'loop', 'api', 'player_id'];
+			_this.pause();
+			vimeo.utils.css(_this.player, {
+				display: 'none'
+			});
 
-				for (var i = 0; i < allowed.length; i++) {
-					var key = allowed[i];
-					if (this.config.hasOwnProperty(key)) {
-						var value = _this.config[key];
-						if (typeof value === "boolean") value = value ? 1 : 0;
-						url += encodeURIComponent(key) + "=" + encodeURIComponent(value) + "&";
-					}
+			if (typeof autoplay === "boolean") {
+				_this.config.autoplay = autoplay;
+			}
+			
+			var item = _playlist[index];
+			var url = 'http://player.vimeo.com/video/' + item.id + '?';
+			var allowed = [	'byline', 'title', 'portrait', 'color',
+							'autoplay', 'loop', 'api', 'player_id'];
+
+			for (var i = 0; i < allowed.length; i++) {
+				var key = allowed[i];
+				if (_this.config.hasOwnProperty(key)) {
+					var value = _this.config[key];
+					if (typeof value === "boolean") value = value ? 1 : 0;
+					url += encodeURIComponent(key) + "=" + encodeURIComponent(value) + "&";
 				}
-				
-				if (this.player) {
-					this.player.src = url.slice(0, -1);
-				}
+			}
+			
+			if (_this.player) {
+				_this.player.src = url.slice(0, -1);
 			}
 		};
 		
