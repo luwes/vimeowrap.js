@@ -41,7 +41,9 @@ vimeowrap is an easy to use Vimeo player embedder that can be extended with plug
 ## Configuration
 <table>
 <thead><tr>
-	<th>parameter</th> <th>default</th> <th>description</th>
+	<th><small>parameter</small></th>
+	<th><small>default</small></th>
+	<th><small>description</small></th>
 </tr></thead>
 <tbody>
 	<tr>
@@ -60,6 +62,11 @@ vimeowrap is an easy to use Vimeo player embedder that can be extended with plug
 		<td>Height of the Vimeo player.</td>
 	</tr>
 	<tr>
+		<th>autoplay</th>
+		<td>false</td>
+		<td>Automatically start playback of the video. Note that this won’t work on some devices.</td>
+	</tr>
+	<tr>
 		<th>repeat</th>
 		<td>none</td>
 		<td>
@@ -67,6 +74,7 @@ vimeowrap is an easy to use Vimeo player embedder that can be extended with plug
 			<b>none</b>: stop playback when a video is completed.<br/>
 			<b>list</b>: play each video in the playlist once, stop at the end.<br/>
 			<b>always</b>: continously play the video (or all videos in the playlist).<br/>
+			<b>single</b>: continously repeat the current video in the playlist.
 		</td>
 	</tr>
 	<tr>
@@ -98,16 +106,6 @@ vimeowrap is an easy to use Vimeo player embedder that can be extended with plug
 		<th>portrait</th>
 		<td>true</td>
 		<td>Show the user's portrait on the video.</td>
-	</tr>
-	<tr>
-		<th>autoplay</th>
-		<td>false</td>
-		<td>Automatically start playback of the video. Note that this won’t work on some devices.</td>
-	</tr>
-	<tr>
-		<th>loop</th>
-		<td>false</td>
-		<td>Play the video again automatically when it reaches the end.</td>
 	</tr>
 	</tbody>
 </table>

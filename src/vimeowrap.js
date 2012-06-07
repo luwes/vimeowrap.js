@@ -159,6 +159,9 @@ var vimeowrap = function(identifier) {
 					}
 					_this.playlistItem(index, true);
 					break;
+				case "single":
+					_this.play();
+					break;
 			}
 		}
 		
