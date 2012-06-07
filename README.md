@@ -45,7 +45,7 @@ vimeowrap is an easy to use Vimeo player embedder that can be extended with plug
 </tr></thead>
 <tbody>
 	<tr>
-		<th>urls</th>
+		<th>`urls`</th>
 		<td></td>
 		<td>(required) Array with the Vimeo URL's. User or video URL's are supported</td>
 	</tr>
