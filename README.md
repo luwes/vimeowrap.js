@@ -68,7 +68,7 @@ vimeowrap is an easy to use Vimeo player embedder that can be extended with plug
 		<th>repeat</th>
 		<td>none</td>
 		<td>
-			What to do when the video has ended. Has several options:<br/>
+			What to do when the video has ended.<br/>
 			<b>none</b>: do nothing (stop playback) whenever a video is completed.<br/>
 			<b>list</b>: play each video in the playlist once, stop at the end.<br/>
 			<b>always</b>: continously play the video (or all videos in the playlist).<br/>
@@ -78,7 +78,7 @@ vimeowrap is an easy to use Vimeo player embedder that can be extended with plug
 	<tr>
 		<th>plugins</th>
 		<td></td>
-		<td>Object with plugin definitions. Plugins are seperate javascript files that extend the functionality of vimeowrap. See Usage.</td>
+		<td>Object with plugins. Plugins are seperate javascript files that extend the functionality of vimeowrap.</td>
 	</tr>
 	<tr>
 		<th>color</th>
