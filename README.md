@@ -60,6 +60,22 @@ vimeowrap is an easy to use Vimeo player embedder that can be extended with plug
 		<td>Height of the Vimeo player.</td>
 	</tr>
 	<tr>
+		<th>item</th>
+		<td>0</td>
+		<td>Playlist item that should start to play. Use this to start the player with a specific item instead of with the first item.</td>
+	</tr>
+	<tr>
+		<th>repeat</th>
+		<td>none</td>
+		<td>
+			What to do when the video has ended. Has several options:<br/>
+			* none: do nothing (stop playback) whenever a video is completed.<br/>
+			* list: play each video in the playlist once, stop at the end.<br/>
+			* always: continously play the video (or all videos in the playlist).<br/>
+			* single: continously repeat the current video in the playlist.
+		</td>
+	</tr>
+	<tr>
 		<th>color</th>
 		<td>00adef</td>
 		<td>Specify the color of the video controls.</td>
@@ -83,22 +99,6 @@ vimeowrap is an easy to use Vimeo player embedder that can be extended with plug
 		<th>autoplay</th>
 		<td>false</td>
 		<td>Automatically start playback of the video.</td>
-	</tr>
-	<tr>
-		<th>item</th>
-		<td>0</td>
-		<td>Playlist item that should start to play. Use this to start the player with a specific item instead of with the first item.</td>
-	</tr>
-	<tr>
-		<th>repeat</th>
-		<td>none</td>
-		<td>
-			What to do when the video has ended. Has several options:
-			* none: do nothing (stop playback) whenever a video is completed.
-			* list: play each video in the playlist once, stop at the end.
-			* always: continously play the video (or all files in the playlist).
-			* single: continously repeat the current video in the playlist.
-		</td>
 	</tr>
 	</tbody>
 </table>
