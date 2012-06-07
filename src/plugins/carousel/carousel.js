@@ -2,7 +2,7 @@
  * Vimeo Wrap - Carousel plugin
  *
  * Author: Wesley Luyten
- * Version: 0.1 - (2012/03/18)
+ * Version: 1.0 - (2012/03/18)
  */
 
 (function(vimeo) {
@@ -130,7 +130,7 @@
 			div.appendChild(navright);
 			navright.onclick = this.right;
 			
-			api.events.playlistAllLoaded.add(_parse);
+			api.events.playlist.add(_parse);
 		};
 		
 		function _parse(playlist) {
@@ -190,7 +190,7 @@
 				if (children[i] === target) break;
 			}
 			
-			api.load(_playlist[index], config.autoplay);
+			api.playlistItem(index, config.autoplay);
 			return false;
 		}
 

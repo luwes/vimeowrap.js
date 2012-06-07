@@ -3,14 +3,15 @@
 <head>
 	<meta charset="utf-8">
 	<title>Vimeo Carousel</title>
-	
-	<script src="vimeowrap.js"></script>
-	<script src="vimeowrap.carousel.js"></script>
 </head>
 <body>
 	<div id="player"></div>
+	<script src="vimeowrap.js"></script>
+	<script src="vimeowrap.carousel.js"></script>
 	<script>
 		vimeowrap('player').setup({
+			item: 1,
+			repeat: "list",
 			urls: [
 				'https://vimeo.com/user3709818'
 			],

@@ -2,7 +2,7 @@
  * Vimeo Wrap
  *
  * Author: Wesley Luyten
- * Version: 0.1 - (2012/03/18)
+ * Version: 1.1 - (2012/06/07)
  */
 
 var vimeowrap = function(identifier) {
@@ -14,6 +14,7 @@ var vimeowrap = function(identifier) {
 
 	vimeo.api = function(container) {
 		var _this = this;
+		var _playlist = null;
 		
 		this.container = container;
 		this.id = container.id;
@@ -23,7 +24,6 @@ var vimeowrap = function(identifier) {
 		this.config = null;
 		this.plugins = {};
 		
-		this.videoId = 0;
 		this.froogaloop = null;
 
 		this.setup = function(options) {
@@ -32,6 +32,8 @@ var vimeowrap = function(identifier) {
 				width: 480,
 				height: 280,
 				color: "00adef",
+				repeat: "none",
+				item: 0,
 				api: true,
 				player_id: vimeo.utils.uniqueId('player_')
 			};
@@ -64,10 +66,15 @@ var vimeowrap = function(identifier) {
 				top: displayTop
 			});
 			
-			this.events.playlistFirstLoaded.add(_embed);
+			this.events.playlist.add(_playlistLoaded);
 			var loader = new vimeo.playlistloader(this);
 			loader.load(this.config.urls);
 		};
+
+		function _playlistLoaded(playlist) {
+			_playlist = playlist;
+			_embed(playlist[_this.config.item].url);
+		}
 		
 		function _reset() {
 			_this.container.innerHTML = "";
@@ -116,6 +123,8 @@ var vimeowrap = function(identifier) {
 
 					_this.froogaloop = vimeo.Froogaloop(_this.player.id);
 					_this.events.froogaloopReady.dispatch(_this.froogaloop);
+
+					_this.froogaloop.addEvent('finish', _playerFinish);
 				});
 			});
 		}
@@ -133,12 +142,33 @@ var vimeowrap = function(identifier) {
 			
 			return args;
 		}
-		
-		this.load = function(item, autoplay) {
 
-			if (item.id !== this.videoId) {
+		function _playerFinish(data) {
+			var index;
+			switch (_this.config.repeat) {
+				case "list":
+					index = _this.config.item + 1;
+					if (index < _playlist.length) {
+						_this.playlistItem(index, true);
+					}
+					break;
+				case "always":
+					index = _this.config.item + 1;
+					if (index >= _playlist.length) {
+						index = 0;
+					}
+					_this.playlistItem(index, true);
+					break;
+			}
+		}
+		
+		this.playlistItem = function(index, autoplay) {
+
+			if (index !== _this.config.item) {
 				
 				this.pause();
+
+				_this.config.item = index;
 			
 				vimeo.utils.css(_this.player, {
 					display: 'none'
@@ -148,7 +178,7 @@ var vimeowrap = function(identifier) {
 					this.config.autoplay = autoplay;
 				}
 				
-				this.videoId = item.id;
+				var item = _playlist[index];
 				var url = 'http://player.vimeo.com/video/' + item.id + '?';
 				var allowed = [	'byline', 'title', 'portrait', 'color',
 								'autoplay', 'loop', 'api', 'player_id'];
@@ -165,15 +195,6 @@ var vimeowrap = function(identifier) {
 				if (this.player) {
 					this.player.src = url.slice(0, -1);
 				}
-			}
-		};
-
-		this.playPause = function() {
-			if (_this.froogaloop) {
-				_this.froogaloop.api('paused', function(paused, player_id) {
-					if (paused === true) _this.froogaloop.api('play');
-					else _this.froogaloop.api('pause');
-				});
 			}
 		};
 		
@@ -195,8 +216,7 @@ var vimeowrap = function(identifier) {
 		
 		this.events = {
 			froogaloopReady: new vimeo.signal(),
-			playlistFirstLoaded: new vimeo.signal(),
-			playlistAllLoaded: new vimeo.signal()
+			playlist: new vimeo.signal()
 		};
 	};
 

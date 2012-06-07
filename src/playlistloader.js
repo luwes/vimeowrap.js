@@ -7,12 +7,8 @@
 
 		this.load = function(arr) {
 			_this.list = _convert(arr);
-			var matches = _this.list[0].match(/vimeo.com\/api\/v2\/video\/(\d+)\.json$/);
-			if (matches) {
-				playerApi.events.playlistFirstLoaded.dispatch('http://vimeo.com/' + matches[1]);
-				playerApi.events.playlistFirstLoaded.remove();
-			}
 			_load();
+			return _playlist;
 		};
 		
 		function _convert(arr) {
@@ -30,15 +26,12 @@
 		function _loaded(json) {
 		
 			_playlist = _playlist.concat(json);
-			if (_index === 1) {
-				playerApi.events.playlistFirstLoaded.dispatch(_playlist[0].url);
-				playerApi.events.playlistFirstLoaded.remove();
-			}
+
 			if (_index < _this.list.length) {
 				_load();
 			} else {
-				playerApi.events.playlistAllLoaded.dispatch(_playlist);
-				playerApi.events.playlistAllLoaded.remove();
+				playerApi.events.playlist.dispatch(_playlist);
+				playerApi.events.playlist.remove();
 			}
 		}
 	};
