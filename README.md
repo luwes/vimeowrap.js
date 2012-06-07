@@ -62,18 +62,23 @@ vimeowrap is an easy to use Vimeo player embedder that can be extended with plug
 	<tr>
 		<th>item</th>
 		<td>0</td>
-		<td>Playlist item that should start to play. Use this to start the player with a specific item instead of with the first item.</td>
+		<td>Use this to load the player with a specific playlist item instead of with the first item.</td>
 	</tr>
 	<tr>
 		<th>repeat</th>
 		<td>none</td>
 		<td>
 			What to do when the video has ended. Has several options:<br/>
-			* none: do nothing (stop playback) whenever a video is completed.<br/>
-			* list: play each video in the playlist once, stop at the end.<br/>
-			* always: continously play the video (or all videos in the playlist).<br/>
-			* single: continously repeat the current video in the playlist.
+			<b>none</b>: do nothing (stop playback) whenever a video is completed.<br/>
+			<b>list</b>: play each video in the playlist once, stop at the end.<br/>
+			<b>always</b>: continously play the video (or all videos in the playlist).<br/>
+			<b>single</b>: continously repeat the current video in the playlist.
 		</td>
+	</tr>
+	<tr>
+		<th>plugins</th>
+		<td></td>
+		<td>Object with plugin definitions. Plugins are seperate javascript files that extend the functionality of vimeowrap. See Usage.</td>
 	</tr>
 	<tr>
 		<th>color</th>
