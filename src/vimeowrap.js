@@ -18,12 +18,10 @@ var vimeowrap = function(identifier) {
 		
 		this.container = container;
 		this.id = container.id;
-		
 		this.display = null;
 		this.player = null;
 		this.config = null;
 		this.plugins = {};
-		
 		this.froogaloop = null;
 
 		this.setup = function(options) {
@@ -47,7 +45,7 @@ var vimeowrap = function(identifier) {
 					_this.plugins[key] = new vimeo[key](_this, _this.config.plugins[key]);
 					
 					_this.plugins[key].config['y'] = height;
-					height += _this.plugins[key].config['height'];
+					height += _this.plugins[key].config['height'] || 0;
 					if (_this.plugins[key].config['position'] === "top") {
 						_this.plugins[key].config['y'] = displayTop;
 						displayTop += _this.plugins[key].config['height'];
