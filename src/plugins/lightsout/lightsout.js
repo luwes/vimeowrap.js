@@ -5,9 +5,9 @@
  * Version: 1.0 - (2012/06/08)
  */
 
-(function(vimeo) {
+(function(base) {
 	
-	vimeo.lightsout = function(api, config) {
+	base.lightsout = function(api, config) {
 		var _this = this;
 		var shade, lights;
 		
@@ -21,7 +21,7 @@
 			parentid:				null
 		};
 
-		config = vimeo.utils.extend(options, config);
+		config = base.utils.extend(options, config);
 		this.config = config;
 
 		this.setup = function() {
@@ -48,7 +48,7 @@
 
 			shade.onclick = turnOn;
 			
-			lights = new vimeo.lightsout.Fade(shade, config.time, config.opacity);
+			lights = new base.lightsout.Fade(shade, config.time, config.opacity);
 
 			api.display.style.zIndex = 301;
 

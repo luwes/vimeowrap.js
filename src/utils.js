@@ -1,9 +1,9 @@
-(function(vimeo) {
+(function(base) {
 	
-	vimeo.utils = function() {
+	base.utils = function() {
 	};
 	
-	vimeo.utils.jsonp = function(url, params, callback) {
+	base.utils.jsonp = function(url, params, callback) {
 			
 		var query = "?";
 		params = params || {};
@@ -13,7 +13,7 @@
 			}
 		}
 		
-		var jsonp = vimeo.utils.uniqueId("vimeojson");
+		var jsonp = base.utils.uniqueId("json_call");
 		window[jsonp] = function(data) {
 			callback(data);
 			window[jsonp] = null;
@@ -37,7 +37,7 @@
 		head.insertBefore(script, head.firstChild);
 	};
 	
-	vimeo.utils.extend = function(destination, source) {
+	base.utils.extend = function(destination, source) {
 		for (var property in source) {
 			if (source[property] && source[property].constructor &&
 				source[property].constructor === Object) {
@@ -50,7 +50,7 @@
 		return destination;
 	};
 	
-	vimeo.utils.css = function(domelement, styles, debug) {
+	base.utils.css = function(domelement, styles, debug) {
 		if (domelement) {
 			for (var style in styles) {
 				try {
@@ -69,7 +69,7 @@
 		}
 	};
 	
-	vimeo.utils.prepend = function(child, parent) {
+	base.utils.prepend = function(child, parent) {
 		if (parent.firstChild) {
 			parent.insertBefore(child, parent.firstChild);
 		} else {
@@ -78,7 +78,7 @@
 	};
 	
 	var idCounter = 0;
-	vimeo.utils.uniqueId = function(prefix) {
+	base.utils.uniqueId = function(prefix) {
 		var id = idCounter++;
 		return prefix ? prefix + id : id;
 	};

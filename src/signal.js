@@ -1,6 +1,6 @@
-(function(vimeo) {
+(function(base) {
 	
-	vimeo.signal = function() {
+	base.signal = function() {
 		var _callbacks = [];
 
 		this.add = function(func) {

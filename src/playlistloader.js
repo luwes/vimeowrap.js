@@ -1,6 +1,6 @@
-(function(vimeo) {
+(function(base) {
 	
-	vimeo.playlistloader = function(playerApi) {
+	base.playlistloader = function(playerApi) {
 		var _this = this;
 		var _index = 0;
 		var _playlist = [];
@@ -20,7 +20,7 @@
 		}
 		
 		function _load() {
-			vimeo.utils.jsonp(_this.list[_index++], {}, _loaded);
+			base.utils.jsonp(_this.list[_index++], {}, _loaded);
 		}
 		
 		function _loaded(json) {

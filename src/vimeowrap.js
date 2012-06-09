@@ -9,10 +9,10 @@ var vimeowrap = function(identifier) {
 	return vimeowrap.api.select(identifier);
 };
 
-(function(vimeo) {
+(function(base) {
 	var _players = {};
 
-	vimeo.api = function(container) {
+	base.api = function(container) {
 		var _this = this;
 		var _playlist = null;
 		
@@ -33,16 +33,16 @@ var vimeowrap = function(identifier) {
 				repeat: "none",
 				item: 0,
 				api: true,
-				player_id: vimeo.utils.uniqueId('player_')
+				player_id: base.utils.uniqueId('player_')
 			};
-			_this.config = vimeo.utils.extend(defaultConfig, options);
+			_this.config = base.utils.extend(defaultConfig, options);
 			_reset();
 			
 			var height = _this.config.height;
 			var displayTop = 0;
 			for (var key in _this.config.plugins) {
-				if (typeof vimeo[key] === "function") {
-					_this.plugins[key] = new vimeo[key](_this, _this.config.plugins[key]);
+				if (typeof base[key] === "function") {
+					_this.plugins[key] = new base[key](_this, _this.config.plugins[key]);
 					
 					_this.plugins[key].config['y'] = height;
 					height += _this.plugins[key].config['height'] || 0;
@@ -55,17 +55,17 @@ var vimeowrap = function(identifier) {
 				}
 			}
 			
-			vimeo.utils.css(_this.container, {
+			base.utils.css(_this.container, {
 				width: _this.config.width,
 				height: height
 			});
 
-			vimeo.utils.css(_this.display, {
+			base.utils.css(_this.display, {
 				top: displayTop
 			});
 			
 			_this.events.playlist.add(_playlistLoaded);
-			var loader = new vimeo.playlistloader(_this);
+			var loader = new base.playlistloader(_this);
 			loader.load(_this.config.urls);
 		};
 
@@ -76,14 +76,14 @@ var vimeowrap = function(identifier) {
 		
 		function _reset() {
 			_this.container.innerHTML = "";
-			vimeo.utils.css(_this.container, {
+			base.utils.css(_this.container, {
 				position: 'relative'
 			});
 			
 			_this.display = document.createElement('div');
 			_this.display.id = _this.id + "_display";
 			_this.container.appendChild(_this.display);
-			vimeo.utils.css(_this.display, {
+			base.utils.css(_this.display, {
 				width: _this.config.width,
 				height: _this.config.height,
 				position: 'absolute',
@@ -93,19 +93,19 @@ var vimeowrap = function(identifier) {
 		
 		function _embed(url) {
 
-			vimeo.utils.jsonp('http://vimeo.com/api/oembed.json', _getEmbedArgs({ url:url }), function(json) {
+			base.utils.jsonp('http://vimeo.com/api/oembed.json', _getEmbedArgs({ url:url }), function(json) {
 
 				var temp = document.createElement('div');
 				temp.innerHTML = json.html;
 				_this.player = temp.children[0];
 				_this.player.id = _this.config.player_id;
-				vimeo.utils.css(_this.player, {
+				base.utils.css(_this.player, {
 					position: 'absolute',
 					display: 'none'
 				});
 
 				var showPlayer = function() {
-					vimeo.utils.css(_this.player, {
+					base.utils.css(_this.player, {
 						display: 'block'
 					});
 				};
@@ -115,11 +115,11 @@ var vimeowrap = function(identifier) {
 					_this.player.onload = showPlayer;
 				}
 				
-				vimeo.utils.prepend(_this.player, _this.display);
+				base.utils.prepend(_this.player, _this.display);
 						
-				vimeo.Froogaloop(_this.player.id).addEvent('ready', function() {
+				base.Froogaloop(_this.player.id).addEvent('ready', function() {
 
-					_this.froogaloop = vimeo.Froogaloop(_this.player.id);
+					_this.froogaloop = base.Froogaloop(_this.player.id);
 					_this.events.froogaloopReady.dispatch(_this.froogaloop);
 
 					_this.froogaloop.addEvent('finish', _playerFinish);
@@ -168,7 +168,7 @@ var vimeowrap = function(identifier) {
 			_this.config.item = index;
 
 			_this.pause();
-			vimeo.utils.css(_this.player, {
+			base.utils.css(_this.player, {
 				display: 'none'
 			});
 
@@ -212,12 +212,12 @@ var vimeowrap = function(identifier) {
 		};
 		
 		this.events = {
-			froogaloopReady: new vimeo.signal(),
-			playlist: new vimeo.signal()
+			froogaloopReady: new base.signal(),
+			playlist: new base.signal()
 		};
 	};
 
-	vimeo.api.select = function(identifier) {
+	base.api.select = function(identifier) {
 		var _container;
 		
 		if (identifier.nodeType) {
@@ -233,7 +233,7 @@ var vimeowrap = function(identifier) {
 			if (foundPlayer) {
 				return foundPlayer;
 			} else {
-				return _players[_container.id] = new vimeo.api(_container);
+				return _players[_container.id] = new base.api(_container);
 			}
 		}
 		return null;

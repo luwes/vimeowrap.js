@@ -5,9 +5,9 @@
  * Version: 1.0 - (2012/03/18)
  */
 
-(function(vimeo) {
+(function(base) {
 	
-	vimeo.carousel = function(api, config) {
+	base.carousel = function(api, config) {
 		var _this = this;
 		var _playlist = null;
 
@@ -30,7 +30,7 @@
 			}
 		};
 
-		config = vimeo.utils.extend(options, config);
+		config = base.utils.extend(options, config);
 		this.config = config;
 		this.x = 0;
 		this.visible = 0;
@@ -83,19 +83,19 @@
 			div = document.createElement('div');
 			div.id = api.id + "_carousel";
 			api.container.appendChild(div);
-			vimeo.utils.css(div, {
+			base.utils.css(div, {
 				width: config.width,
 				height: config.height,
 				position: 'absolute',
 				left: config.x,
 				top: config.y
 			});
-			new vimeo.carousel.NoClickDelay(div);
+			new base.carousel.NoClickDelay(div);
 			
 			var wrap = document.createElement('div');
 			wrap.id = div.id + "_wrap";
 			div.appendChild(wrap);
-			vimeo.utils.css(wrap, {
+			base.utils.css(wrap, {
 				width: config.width - config.offsetx * 2,
 				height: config.height - config.offsety,
 				overflow: 'hidden',
@@ -107,7 +107,7 @@
 			list = document.createElement('ul');
 			list.id = div.id + "_list";
 			wrap.appendChild(list);
-			vimeo.utils.css(list, {
+			base.utils.css(list, {
 				height: config.height,
 				position: 'absolute',
 				'list-style-type': 'none',
@@ -156,7 +156,7 @@
 			var elements = list.getElementsByTagName('li');
 			for (i = 0; i < elements.length; i++) {
 				var li = elements[i];
-				vimeo.utils.css(li, {
+				base.utils.css(li, {
 					styleFloat: 'left',
 					cssFloat: 'left',
 					width: config.thumb.width,
@@ -166,7 +166,7 @@
 
 			_this.offset = config.thumb.width + marginRight;
 			
-			vimeo.utils.css(list, {
+			base.utils.css(list, {
 				width: playlist.length * _this.offset
 			});
 		}
