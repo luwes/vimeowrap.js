@@ -19,10 +19,10 @@ var vimeowrap = function(identifier) {
 		this.container = container;
 		this.id = container.id;
 		this.display = null;
+		this.iframe = null;
 		this.player = null;
 		this.config = null;
 		this.plugins = {};
-		this.froogaloop = null;
 
 		this.setup = function(options) {
 		
@@ -97,32 +97,32 @@ var vimeowrap = function(identifier) {
 
 				var temp = document.createElement('div');
 				temp.innerHTML = json.html;
-				_this.player = temp.children[0];
-				_this.player.id = _this.config.player_id;
-				base.utils.css(_this.player, {
+				_this.iframe = temp.children[0];
+				_this.iframe.id = _this.config.player_id;
+				base.utils.css(_this.iframe, {
 					position: 'absolute',
 					display: 'none'
 				});
 
 				var showPlayer = function() {
-					base.utils.css(_this.player, {
+					base.utils.css(_this.iframe, {
 						display: 'block'
 					});
 				};
-				if (_this.player.attachEvent) {
-					_this.player.attachEvent("onload", showPlayer);
+				if (_this.iframe.attachEvent) {
+					_this.iframe.attachEvent("onload", showPlayer);
 				} else {
-					_this.player.onload = showPlayer;
+					_this.iframe.onload = showPlayer;
 				}
 				
-				base.utils.prepend(_this.player, _this.display);
+				base.utils.prepend(_this.iframe, _this.display);
 						
-				base.Froogaloop(_this.player.id).addEvent('ready', function() {
+				base.Froogaloop(_this.iframe.id).addEvent('ready', function() {
 
-					_this.froogaloop = base.Froogaloop(_this.player.id);
-					_this.events.froogaloopReady.dispatch(_this.froogaloop);
+					_this.player = base.Froogaloop(_this.iframe.id);
+					_this.events.playerReady.dispatch(_this.player);
 
-					_this.froogaloop.addEvent('finish', _playerFinish);
+					_this.player.addEvent('finish', _playerFinish);
 				});
 			});
 		}
@@ -168,7 +168,7 @@ var vimeowrap = function(identifier) {
 			_this.config.item = index;
 
 			_this.pause();
-			base.utils.css(_this.player, {
+			base.utils.css(_this.iframe, {
 				display: 'none'
 			});
 
@@ -190,29 +190,41 @@ var vimeowrap = function(identifier) {
 				}
 			}
 			
-			if (_this.player) {
-				_this.player.src = url.slice(0, -1);
+			if (_this.iframe) {
+				_this.iframe.src = url.slice(0, -1);
 			}
 		};
 		
 		this.play = function() {
-			if (_this.froogaloop) {
-				_this.froogaloop.api('paused', function(paused, player_id) {
-					if (paused === true) _this.froogaloop.api('play');
+			if (_this.player) {
+				_this.player.api('paused', function(paused, player_id) {
+					if (paused === true) _this.player.api('play');
 				});
 			}
 		};
 
 		this.pause = function() {
-			if (_this.froogaloop) {
-				_this.froogaloop.api('paused', function(paused, player_id) {
-					if (paused === false) _this.froogaloop.api('pause');
+			if (_this.player) {
+				_this.player.api('paused', function(paused, player_id) {
+					if (paused === false) _this.player.api('pause');
 				});
 			}
 		};
+
+		this.onPlay = function(func) {
+			if (_this.player) _this.player.addEvent('play', func);
+		};
+
+		this.onPause = function(func) {
+			if (_this.player) _this.player.addEvent('pause', func);
+		};
+
+		this.onFinish = function(func) {
+			if (_this.player) _this.player.addEvent('finish', func);
+		};
 		
 		this.events = {
-			froogaloopReady: new base.signal(),
+			playerReady: new base.signal(),
 			playlist: new base.signal()
 		};
 	};

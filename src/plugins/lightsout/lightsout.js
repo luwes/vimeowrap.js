@@ -51,11 +51,10 @@
 			lights = new base.lightsout.Fade(shade, config.time, config.opacity);
 
 			api.display.style.zIndex = 301;
-
-			api.events.froogaloopReady.add(function(f) {
-				f.addEvent('play', onPlay);
-				f.addEvent('pause', onPause);
-				f.addEvent('finish', onFinish);
+			api.events.playerReady.add(function(player) {
+				api.onPlay(onPlay);
+				api.onPause(onPause);
+				api.onFinish(onFinish);
 			});
 		};
 
@@ -64,17 +63,17 @@
 			lights.on();
 		}
 
-		function onPlay(player_id) {
+		function onPlay() {
 			if (config.onplay == 'off') lights.off();
 			else lights.on();
 		}
 
-		function onPause(player_id) {
+		function onPause() {
 			if (config.onpause == 'off') lights.off();
 			else lights.on();
 		}
 
-		function onFinish(player_id) {
+		function onFinish() {
 			if (config.onfinish == 'off') lights.off();
 			else lights.on();
 		}
