@@ -30,6 +30,8 @@
 		},
 
 		touchend: function(e) {
+			e.preventDefault();
+			
 			this.element.removeEventListener('touchmove', this, false);
 			this.element.removeEventListener('touchend', this, false);
 

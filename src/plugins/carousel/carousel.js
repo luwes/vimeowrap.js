@@ -21,7 +21,7 @@
 			offsetx: 50,
 			offsety: 10,
 			autoplay: false,
-			template: '<div><a href="#vimeo.com/{{id}}" title="{{title}}"><img src="{{thumbnail|' + (config.thumb && config.thumb.quality ? config.thumb.quality : "small") + '}}" alt="" /><span>{{title}}</span></a></div>',
+			template: '<a href="#vimeo.com/{{id}}" title="{{title}}"><img src="{{thumbnail|' + (config.thumb && config.thumb.quality ? config.thumb.quality : "small") + '}}" alt="" /><span>{{title}}</span></a>',
 			easing: TWEEN.Easing.Exponential.EaseInOut,
 			speed: 250,
 			thumb: {
@@ -48,8 +48,8 @@
 						"#{{id}} a {text-decoration:none;}" +
 						"#{{id}} a:active, #{{id}} a:focus {outline:none;}" +
 						"#{{id}} {font:bold 12px/14px helvetica,arial,sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);}" +
-						"#{{id}} ul li {line-height:14px;overflow:hidden;text-align:center;}" +
-						"#{{id}} ul li a {color:#{{color}};}" +
+						"#{{id}} ul li {display:block;float:left;width:{{thumb_width}}px;line-height:14px;overflow:hidden;}" +
+						"#{{id}} ul li a {display:block;color:#{{color}};text-align:center;}" +
 						"#{{id}} ul li a img {border:none;width:{{thumb_width}}px;height:{{thumb_height}}px;}" +
 						
 						"#{{id}}_navleft, #{{id}}_navright {color:#000;display:block;font-family:'Pictish';font-size:19px;position:absolute;top:32px;width:20px;height:19px;padding:10px;}" +
@@ -75,7 +75,7 @@
 			var styleElement = document.createElement('style');
 			styleElement.type = "text/css";
 			//styleElement must be added to head before setting cssText, IE font-face
-			document.getElementsByTagName('head')[0].appendChild(styleElement);
+			base.utils.prepend(styleElement, document.getElementsByTagName('head')[0]);
 			if (styleElement.styleSheet) {
 				styleElement.styleSheet.cssText = rules.nodeValue;
 			} else {
@@ -159,9 +159,6 @@
 			for (i = 0; i < elements.length; i++) {
 				var li = elements[i];
 				base.utils.css(li, {
-					styleFloat: 'left',
-					cssFloat: 'left',
-					width: config.thumb.width,
 					marginRight: marginRight
 				});
 			}
