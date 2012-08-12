@@ -12,9 +12,13 @@
 		};
 		
 		function _convert(arr) {
-			for (var i=0; i < arr.length; i++) {
-				arr[i] = arr[i].replace(/vimeo.com\/(\d+)$/i, 'vimeo.com/api/v2/video/$1.json');
-				arr[i] = arr[i].replace(/vimeo.com\/([A-Z][A-Z0-9]+)$/i, 'vimeo.com/api/v2/$1/videos.json');
+			for (var i = 0; i < arr.length; i++) {
+				var apiV2 = "vimeo.com/api/v2/";
+				arr[i] = arr[i].replace(/vimeo.com\/(\d+)$/i, apiV2 + 'video/$1.json');
+				arr[i] = arr[i].replace(/vimeo.com\/([A-Z0-9]+)$/i, apiV2 + '$1/videos.json');
+				arr[i] = arr[i].replace(/vimeo.com\/groups\/([A-Z0-9]+)$/i, apiV2 + 'group/$1/videos.json');
+				arr[i] = arr[i].replace(/vimeo.com\/channels\/([A-Z0-9]+)$/i, apiV2 + 'channel/$1/videos.json');
+				arr[i] = arr[i].replace(/vimeo.com\/album\/([A-Z0-9]+)$/i, apiV2 + 'album/$1/videos.json');
 			}
 			return arr;
 		}
