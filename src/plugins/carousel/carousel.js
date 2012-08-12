@@ -48,7 +48,8 @@
 						"#{{id}} a {text-decoration:none;}" +
 						"#{{id}} a:active, #{{id}} a:focus {outline:none;}" +
 						"#{{id}} {font:bold 12px/14px helvetica,arial,sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);}" +
-						"#{{id}} ul li {display:block;float:left;width:{{thumb_width}}px;line-height:14px;overflow:hidden;}" +
+						"#{{id}} ul {margin:0;padding:0;}" +
+						"#{{id}} ul li {display:block;float:left;width:{{thumb_width}}px;line-height:14px;}" +
 						"#{{id}} ul li a {display:block;color:#{{color}};text-align:center;}" +
 						"#{{id}} ul li a img {border:none;width:{{thumb_width}}px;height:{{thumb_height}}px;}" +
 						
@@ -112,9 +113,7 @@
 			base.utils.css(list, {
 				height: config.height,
 				position: 'absolute',
-				'list-style-type': 'none',
-				margin: 0,
-				padding: 0
+				'list-style': 'none'
 			});
 			list.onclick = _loadOnClick;
 
@@ -139,32 +138,23 @@
 			
 			_playlist = playlist;
 			_this.length = playlist.length;
-			
-			var html = [];
-			var template = config.template;
-			for (var i = 0; i < playlist.length; i++) {
-				html.push('<li>');
-				html.push(template.populate(playlist[i]));
-				html.push('</li>');
-			}
-			
+
 			var listWidth = config.width - config.offsetx * 2;
 			_this.visible = config.visible > 0 ? config.visible : Math.floor(listWidth / config.thumb.width);
 			var marginRight = Math.round((listWidth - _this.visible * config.thumb.width) / Math.max(_this.visible-1, 1));
 			
+			var html = [];
+			var template = config.template;
+			for (var i = 0; i < playlist.length; i++) {
+				html.push('<li style="margin-right:' + marginRight + 'px;">');
+				html.push(template.populate(playlist[i]));
+				html.push('</li>');
+			}
+			
 			var list = document.getElementById(div.id+'_list');
 			list.innerHTML = html.join('');
-			
-			var elements = list.getElementsByTagName('li');
-			for (i = 0; i < elements.length; i++) {
-				var li = elements[i];
-				base.utils.css(li, {
-					marginRight: marginRight
-				});
-			}
 
 			_this.offset = config.thumb.width + marginRight;
-			
 			base.utils.css(list, {
 				width: playlist.length * _this.offset
 			});
