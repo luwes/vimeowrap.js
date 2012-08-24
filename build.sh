@@ -1,6 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
-java -jar compiler/compiler.jar \
+cd $(dirname $0)
+
+java -jar /usr/local/bin/compiler/compiler.jar \
 	--js=src/vimeowrap.js \
 	--js=src/playlistloader.js \
 	--js=src/utils.js \
@@ -10,13 +12,13 @@ java -jar compiler/compiler.jar \
 	--output_wrapper "if (typeof vimeowrap === 'undefined') {%output%}" \
 	#--compilation_level ADVANCED_OPTIMIZATIONS \
 	
-java -jar compiler/compiler.jar \
+java -jar /usr/local/bin/compiler/compiler.jar \
 	--js=src/plugins/carousel/carousel.js \
 	--js=src/plugins/carousel/noclickdelay.js \
 	--js=src/plugins/carousel/Tween.js \
 	--js_output_file=vimeowrap.carousel.js \
 	
-java -jar compiler/compiler.jar \
+java -jar /usr/local/bin/compiler/compiler.jar \
 	--js=src/plugins/lightsout/lightsout.js \
 	--js=src/plugins/lightsout/fade.js \
 	--js_output_file=vimeowrap.lightsout.js \
