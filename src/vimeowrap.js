@@ -5,14 +5,32 @@
  * Version: 1.1 - (2012/06/07)
  */
 
-var vimeowrap = function(identifier) {
-	return vimeowrap.api.select(identifier);
-};
+(function(window) {
 
-(function(base) {
 	var _players = {};
+	var vimeowrap = function(identifier) {
+		
+		var _container;
+		if (identifier.nodeType) {
+			// Handle DOM Element
+			_container = identifier;
+		} else if (typeof identifier === "string") {
+			// Find container by ID
+			_container = document.getElementById(identifier);
+		}
+		
+		if (_container) {
+			var foundPlayer = _players[_container.id];
+			if (foundPlayer) {
+				return foundPlayer;
+			} else {
+				return _players[_container.id] = new vimeowrap.api(_container);
+			}
+		}
+		return null;
+	};
 
-	base.api = function(container) {
+	vimeowrap.api = function(container) {
 		var _this = this;
 		var _playlist = null;
 		
@@ -33,16 +51,16 @@ var vimeowrap = function(identifier) {
 				repeat: "none",
 				item: 0,
 				api: true,
-				player_id: base.utils.uniqueId('player_')
+				player_id: vimeowrap.utils.uniqueId('player_')
 			};
-			_this.config = base.utils.extend(defaultConfig, options);
+			_this.config = vimeowrap.utils.extend(defaultConfig, options);
 			_reset();
 			
 			var height = _this.config.height;
 			var displayTop = 0;
 			for (var key in _this.config.plugins) {
-				if (typeof base[key] === "function") {
-					_this.plugins[key] = new base[key](_this, _this.config.plugins[key]);
+				if (typeof vimeowrap[key] === "function") {
+					_this.plugins[key] = new vimeowrap[key](_this, _this.config.plugins[key]);
 					
 					_this.plugins[key].config['y'] = height;
 					height += _this.plugins[key].config['height'] || 0;
@@ -55,17 +73,17 @@ var vimeowrap = function(identifier) {
 				}
 			}
 			
-			base.utils.css(_this.container, {
+			vimeowrap.utils.css(_this.container, {
 				width: _this.config.width,
 				height: height
 			});
 
-			base.utils.css(_this.display, {
+			vimeowrap.utils.css(_this.display, {
 				top: displayTop
 			});
 			
 			_this.events.playlist.add(_playlistLoaded);
-			var loader = new base.playlistloader(_this);
+			var loader = new vimeowrap.playlistloader(_this);
 			loader.load(_this.config.urls);
 		};
 
@@ -76,14 +94,14 @@ var vimeowrap = function(identifier) {
 		
 		function _reset() {
 			_this.container.innerHTML = "";
-			base.utils.css(_this.container, {
+			vimeowrap.utils.css(_this.container, {
 				position: 'relative'
 			});
 			
 			_this.display = document.createElement('div');
 			_this.display.id = _this.id + "_display";
 			_this.container.appendChild(_this.display);
-			base.utils.css(_this.display, {
+			vimeowrap.utils.css(_this.display, {
 				width: _this.config.width,
 				height: _this.config.height,
 				position: 'absolute',
@@ -93,19 +111,19 @@ var vimeowrap = function(identifier) {
 		
 		function _embed(url) {
 
-			base.utils.jsonp('http://vimeo.com/api/oembed.json', _getEmbedArgs({ url:url }), function(json) {
+			vimeowrap.utils.jsonp('http://vimeo.com/api/oembed.json', _getEmbedArgs({ url:url }), function(json) {
 
 				var temp = document.createElement('div');
 				temp.innerHTML = json.html;
 				_this.iframe = temp.children[0];
 				_this.iframe.id = _this.config.player_id;
-				base.utils.css(_this.iframe, {
+				vimeowrap.utils.css(_this.iframe, {
 					position: 'absolute',
 					display: 'none'
 				});
 
 				var showPlayer = function() {
-					base.utils.css(_this.iframe, {
+					vimeowrap.utils.css(_this.iframe, {
 						display: 'block'
 					});
 				};
@@ -115,11 +133,11 @@ var vimeowrap = function(identifier) {
 					_this.iframe.onload = showPlayer;
 				}
 				
-				base.utils.prepend(_this.iframe, _this.display);
+				vimeowrap.utils.prepend(_this.iframe, _this.display);
 						
-				base.Froogaloop(_this.iframe.id).addEvent('ready', function() {
+				vimeowrap.Froogaloop(_this.iframe.id).addEvent('ready', function() {
 
-					_this.player = base.Froogaloop(_this.iframe.id);
+					_this.player = vimeowrap.Froogaloop(_this.iframe.id);
 					_this.events.playerReady.dispatch(_this.player);
 
 					_this.player.addEvent('finish', _playerFinish);
@@ -168,7 +186,7 @@ var vimeowrap = function(identifier) {
 			_this.config.item = index;
 
 			_this.pause();
-			base.utils.css(_this.iframe, {
+			vimeowrap.utils.css(_this.iframe, {
 				display: 'none'
 			});
 
@@ -222,33 +240,17 @@ var vimeowrap = function(identifier) {
 		this.onFinish = function(func) {
 			if (_this.player) _this.player.addEvent('finish', func);
 		};
+
+		this.getPlugin = function(key) {
+			return _this.plugins[key];
+		};
 		
 		this.events = {
-			playerReady: new base.signal(),
-			playlist: new base.signal()
+			playerReady: new vimeowrap.signal(),
+			playlist: new vimeowrap.signal()
 		};
 	};
 
-	base.api.select = function(identifier) {
-		var _container;
-		
-		if (identifier.nodeType) {
-			// Handle DOM Element
-			_container = identifier;
-		} else if (typeof identifier === "string") {
-			// Find container by ID
-			_container = document.getElementById(identifier);
-		}
-		
-		if (_container) {
-			var foundPlayer = _players[_container.id];
-			if (foundPlayer) {
-				return foundPlayer;
-			} else {
-				return _players[_container.id] = new base.api(_container);
-			}
-		}
-		return null;
-	};
+	window.vimeowrap = vimeowrap;
 
-})(vimeowrap);
+})(window);
