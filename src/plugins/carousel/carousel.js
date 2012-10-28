@@ -21,7 +21,8 @@
 			offsetx: 50,
 			offsety: 10,
 			autoplay: false,
-			template: '<a href="#vimeo.com/{{id}}" title="{{title}}"><img src="{{thumbnail|' + (config.thumb && config.thumb.quality ? config.thumb.quality : "small") + '}}" alt="" /><span>{{title}}</span></a>',
+			template: '<a href="#vimeo.com/{{id}}" title="{{title}}"><img src="{{thumbnail_' + (config.thumb && config.thumb.quality ? config.thumb.quality : "small") + '}}" alt="" /><span>{{title}}</span></a>',
+			style: '',
 			easing: TWEEN.Easing.Exponential.EaseInOut,
 			speed: 250,
 			thumb: {

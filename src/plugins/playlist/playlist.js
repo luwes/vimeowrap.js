@@ -21,7 +21,8 @@
 			offsetx: 0,
 			offsety: 0,
 			autoplay: false,
-			template: '<a href="#vimeo.com/{{id}}" title="{{title}}"><img src="{{thumbnail|' + (config.thumb && config.thumb.quality ? config.thumb.quality : "small") + '}}" alt="" /><span>{{title}}</span></a>',
+			template: '<a href="#vimeo.com/{{id}}" title="{{title}}"><img src="{{thumbnail_' + (config.thumb && config.thumb.quality ? config.thumb.quality : "small") + '}}" alt="" /><span>{{title}}</span></a>',
+			style: '',
 			thumb: {
 				width: 40,
 				height: 30
