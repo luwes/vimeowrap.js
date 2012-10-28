@@ -9,16 +9,21 @@
 	<script src="vimeowrap.js"></script>
 	<script src="vimeowrap.carousel.js"></script>
 	<script src="vimeowrap.lightsout.js"></script>
+	<script src="vimeowrap.playlist.js"></script>
+	<script src="vimeowrap.infobox.js"></script>
 	<script>
 		vimeowrap('player').setup({
 			//item: 1,
-			//repeat: "single",
+			repeat: "list",
 			urls: [
 				'https://vimeo.com/channels/vimeohq'
 			],
+			portrait: false,
+			title: false,
+			byline: false,
 			plugins: {
-				'carousel': {
-				}
+				infobox:{},
+				carousel:{}
 			}
 		});
 	</script>

@@ -18,7 +18,10 @@ uglifyjs2 src/vimeowrap.js \
 # 	src/plugins/lightsout/fade.js \
 # 	-o vimeowrap.lightsout.js -m
 
-uglifyjs2 src/plugins/playlist/playlist.js \
-	src/plugins/playlist/noclickdelay.js \
-	-o vimeowrap.playlist.js -m
+# uglifyjs2 src/plugins/playlist/playlist.js \
+# 	src/plugins/playlist/noclickdelay.js \
+# 	-o vimeowrap.playlist.js -m
+
+uglifyjs2 src/plugins/infobox/infobox.js \
+	-o vimeowrap.infobox.js -m
 	
