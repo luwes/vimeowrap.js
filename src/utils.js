@@ -97,9 +97,25 @@ if (!Array.indexOf) {
 	};
 }
 
-String.prototype.populate = function(obj) {
-	return this.replace(/\{\{\s*([^\s}]+)\s*\}\}/g, function(match, key) {
-		key = key.replace(/\|/g, '_');
-		return typeof obj[key] !== "undefined" ? obj[key] : match;
+String.prototype.populate = function(obj, funcs) {
+	return this.replace(/\{\{\s*([^|\s}]+)\|?([^\s}]*)\s*\}\}/g, function(match, key, mods) {
+		var str = obj[key];
+		if (typeof str !== "undefined") {
+			if (funcs && mods) {
+				var arr = mods.split('|');
+				for (var i = 0; i < arr.length; i++) {
+					var mod = arr[i].split(':')[0];
+					var par = arr[i].split(':')[1];
+					var args = par ? par.split(',') : [];
+					args.unshift(str);
+					if (typeof funcs[mod] === "function") {
+						str = funcs[mod].apply(str, args);
+					}
+				}
+			}
+			return str;
+		} else {
+			return match;
+		}
   });
 };
