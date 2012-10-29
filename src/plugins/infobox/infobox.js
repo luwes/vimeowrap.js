@@ -14,7 +14,7 @@
 			position: 'bottom',
 			width: api.config.width,
 			height: 130,
-			template: '<div class="info"><a href="{{user_url}}"><img class="portrait" src="{{user_portrait_medium}}"/></a><div class="title"><a href="{{url}}" title="{{title}}">{{title|truncate:20}}</a></div><div class="byline">from <a href="{{user_url}}">{{user_name}}</a> <time datetime="{{upload_date}}">{{upload_date|timesince}} ago</time></div><p class="desc">{{description|truncate:100}}</p></div>',
+			template: '<div class="infobox"><a href="{{user_url}}"><img class="portrait" src="{{user_portrait_medium}}"/></a><div class="title"><a href="{{url}}" title="{{title}}">{{title|truncate:20}}</a></div><div class="byline">from <a href="{{user_url}}">{{user_name}}</a> <time datetime="{{upload_date}}">{{upload_date|timesince}} ago</time></div><p class="desc">{{description|truncate:100}}</p></div>',
 			style: ''
 		};
 
@@ -26,7 +26,7 @@
 			var style = "#{{id}} { overflow:hidden; }" +
 						"#{{id}} a { color: #{{color}}; text-decoration:none; }" +
 						"#{{id}} a:hover { color:#F75342; }" +
-						"#{{id}} .info { background-color:#F4F5F7; border:1px solid #E9EBEF; font:normal 14px helvetica,arial,sans-serif; padding:10px; }" +
+						"#{{id}} .infobox { background-color:#F4F5F7; border:1px solid #E9EBEF; font:normal 14px helvetica,arial,sans-serif; padding:10px; }" +
 						"#{{id}} .portrait { border:1px solid #E1E2E3; background-color:#fff; float:left; padding:2px; margin:0 10px 13px 0; width:52px; height:52px; }" +
 						"#{{id}} .title { font-size:30px; font-weight:700; }" +
 						"#{{id}} .byline a { color:#000; font-weight:700; }" +
