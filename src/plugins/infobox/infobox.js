@@ -23,10 +23,10 @@
 
 		this.setup = function() {
 			
-			var style = "#{{id}} { overflow:hidden; }" +
+			var style = "#{{id}} { background-color:#F4F5F7; border:1px solid #E9EBEF; overflow:hidden; }" +
 						"#{{id}} a { color: #{{color}}; text-decoration:none; }" +
 						"#{{id}} a:hover { color:#F75342; }" +
-						"#{{id}} .infobox { background-color:#F4F5F7; border:1px solid #E9EBEF; font:normal 14px helvetica,arial,sans-serif; padding:10px; }" +
+						"#{{id}} .infobox { font:normal 14px helvetica,arial,sans-serif; padding:10px; }" +
 						"#{{id}} .portrait { border:1px solid #E1E2E3; background-color:#fff; float:left; padding:2px; margin:0 10px 13px 0; width:52px; height:52px; }" +
 						"#{{id}} .title { font-size:30px; font-weight:700; }" +
 						"#{{id}} .byline a { color:#000; font-weight:700; }" +
@@ -82,10 +82,12 @@
 					for (var i = 1; i < lbl.length; i++) {
 						obj[lbl[i]] = obj[lbl[i-1]] / num[i];
 						if (obj[lbl[i-1]] < num[i]) {
-							var god = Math.floor(obj[lbl[i-1]]);
-							return god + " " + lbl[i-1] + (god === 1 ? "" : "s");
+							str = Math.floor(obj[lbl[i-1]]);
+							return str + " " + lbl[i-1] + (str === 1 ? "" : "s");
 						}
 					}
+					str = Math.floor(obj[lbl[i-1]]);
+					return str + " " + lbl[i-1] + (str === 1 ? "" : "s");
 				}
 
 			});
