@@ -232,6 +232,22 @@
 
 			this.events.playlistItem.dispatch(item);
 		};
+
+		this.playlistNext = function(autoplay) {
+			var index = config.item + 1;
+			if (index >= playlist.length) {
+				index = 0;
+			}
+			this.playlistItem(index, autoplay);
+		};
+
+		this.playlistPrev = function(autoplay) {
+			var index = config.item - 1;
+			if (index < 0) {
+				index = playlist.length - 1;
+			}
+			this.playlistItem(index, autoplay);
+		};
 		
 		this.play = function() {
 			if (this.player) {
