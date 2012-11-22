@@ -1,6 +1,6 @@
 (function(global) {
 
-	var Fade = function(element, time, dark) {
+	var Fade = function(element, time, dark, callback) {
 		
 		this.element = element;
 		this.time = time || 1000;
@@ -11,24 +11,25 @@
 		var _this = this;
 		var interval;
 		
-		var supportOpacity = 'opacity' in _this.element.style;
-        if (!supportOpacity) _this.element.style.zoom = 1;
+		var supportOpacity = "opacity" in this.element.style;
+        if (!supportOpacity) this.element.style.zoom = 1;
         
         function setOpacity(o) {
-            _this.element.style.opacity = '' + o;
-            _this.element.style.filter = 'alpha(opacity=' + Math.round(o*100) + ')';
+            _this.element.style.opacity = "" + o;
+            _this.element.style.filter = "alpha(opacity=" + Math.round(o*100) + ")";
 			_this.opacity = o;
         }
 		
 		this.off = function() {
+			if (typeof callback === "function") callback();
 			_this.element.style.display = "block";
 			clearInterval(interval);
 			var t0 = new Date().getTime();
 			var o0 = _this.opacity;
 			interval = setInterval(function() {
-				var dt= (new Date().getTime()-t0)/_this.time;
-				if (dt>=1) {
-					dt= 1;
+				var dt = (new Date().getTime()-t0)/_this.time;
+				if (dt >=1) {
+					dt = 1;
 					clearInterval(interval);
 				}
 				setOpacity(_this.dark*dt+o0*(1-dt));
@@ -40,9 +41,9 @@
 			var t0 = new Date().getTime();
 			var o0 = _this.opacity;
 			interval = setInterval(function() {
-				var dt= (new Date().getTime()-t0)/_this.time;
-				if (dt>=1) {
-					dt= 1;
+				var dt = (new Date().getTime()-t0)/_this.time;
+				if (dt >=1) {
+					dt = 1;
 					clearInterval(interval);
 					_this.element.style.display = "none";
 				}
@@ -59,6 +60,6 @@
 		};
 	};
 
-	global['Fade'] = Fade;
+	global.Fade = Fade;
 
 })(vimeowrap.lightsout);

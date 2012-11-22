@@ -30,6 +30,10 @@
 		return null;
 	};
 
+	vimeowrap.getPlayers = function() {
+		return players;
+	};
+
 	vimeowrap.api = function(container) {
 		var _this = this,
 			playlist = null,

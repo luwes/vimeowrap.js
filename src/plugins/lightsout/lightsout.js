@@ -48,9 +48,11 @@
 
 			shade.onclick = turnOn;
 			
-			lights = new base.lightsout.Fade(shade, config.time, config.opacity);
+			lights = new base.lightsout.Fade(shade, config.time, config.opacity, sortPlayers);
+			this.on = lights.on;
+			this.off = lights.off;
+			this.toggle = lights.toggle;
 
-			api.display.style.zIndex = 301;
 			api.events.playerReady.add(function(player) {
 				api.onPlay(onPlay);
 				api.onPause(onPause);
@@ -78,6 +80,13 @@
 			else lights.on();
 		}
 
+		function sortPlayers() {
+			var players = vimeowrap.getPlayers();
+			for (var key in players) {
+				players[key].display.style.zIndex = "auto";
+			}
+			api.display.style.zIndex = 301;
+		}
 	};
 	
 })(vimeowrap);
