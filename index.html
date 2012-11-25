@@ -6,17 +6,18 @@
 </head>
 <body>
 	<div id="player"></div>
-	<script src="vimeowrap.js"></script>
-	<script src="vimeowrap.carousel.js"></script>
+	<script src="1.2/vimeowrap.js"></script>
+	<script src="1.0/vimeowrap.playlist.js"></script>
 	<script>
 		vimeowrap('player').setup({
 			item: 1,
 			repeat: "single",
 			urls: [
-				'https://vimeo.com/user3709818'
+				'https://vimeo.com/garynadeau',
+				'https://vimeo.com/garynadeau?page=2',
 			],
 			plugins: {
-				'carousel': {}
+				'playlist': {}
 			}
 		});
 	</script>
