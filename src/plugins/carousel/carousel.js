@@ -3,25 +3,24 @@
  *
  * Author: Wesley Luyten
  * Version: 1.0 - (2012/03/18)
+ * Version: 1.1 - (2012/11/23)
  */
 
 (function(base) {
 	
 	base.carousel = function(api, config) {
 		var _this = this;
-		var _playlist = null;
 
 		var div;
 		var list;
 		
 		var options = {
 			position: 'bottom',
-			width: api.config.width,
-			height: 130,
+			size: 130,
 			offsetx: 50,
 			offsety: 10,
 			autoplay: false,
-			template: '<a href="#vimeo.com/{{id}}" title="{{title}}"><img src="{{thumbnail_' + (config.thumb && config.thumb.quality ? config.thumb.quality : "small") + '}}" alt="" /><span>{{title}}</span></a>',
+			template: '<a href="{{url}}" title="{{title}}"><img src="{{thumbnail_' + (config.thumb && config.thumb.quality ? config.thumb.quality : "small") + '}}" alt="" /><span>{{title}}</span></a>',
 			style: '',
 			easing: TWEEN.Easing.Exponential.EaseInOut,
 			speed: 250,
@@ -33,7 +32,7 @@
 
 		config = base.utils.extend(options, config);
 		this.config = config;
-		this.x = 0;
+		this.xx = 0;
 		this.visible = 0;
 		this.position = 0;
 		this.offset = 0;
@@ -88,11 +87,11 @@
 			div.id = api.id + "_carousel";
 			api.container.appendChild(div);
 			base.utils.css(div, {
-				width: config.width,
-				height: config.height,
+				width: this.width,
+				height: this.height,
 				position: 'absolute',
-				left: config.x,
-				top: config.y
+				left: this.x,
+				top: this.y
 			});
 			new base.carousel.NoClickDelay(div);
 			
@@ -100,8 +99,8 @@
 			wrap.id = div.id + "_wrap";
 			div.appendChild(wrap);
 			base.utils.css(wrap, {
-				width: config.width - config.offsetx * 2,
-				height: config.height - config.offsety,
+				width: this.width - config.offsetx * 2,
+				height: this.height - config.offsety,
 				overflow: 'hidden',
 				position: 'absolute',
 				left: config.offsetx,
@@ -112,11 +111,11 @@
 			list.id = div.id + "_list";
 			wrap.appendChild(list);
 			base.utils.css(list, {
-				height: config.height,
+				height: this.height,
 				position: 'absolute',
 				'list-style': 'none'
 			});
-			list.onclick = _loadOnClick;
+			list.onclick = loadOnClick;
 
 			var navleft = document.createElement('a');
 			navleft.id = div.id + "_navleft";
@@ -132,15 +131,14 @@
 			div.appendChild(navright);
 			navright.onclick = this.right;
 			
-			api.events.playlist.add(_parse);
+			api.events.playlist.add(parse);
 		};
 		
-		function _parse(playlist) {
+		function parse(playlist) {
 			
-			_playlist = playlist;
 			_this.length = playlist.length;
 
-			var listWidth = config.width - config.offsetx * 2;
+			var listWidth = _this.width - config.offsetx * 2;
 			_this.visible = config.visible > 0 ? config.visible : Math.floor(listWidth / config.thumb.width);
 			var marginRight = Math.round((listWidth - _this.visible * config.thumb.width) / Math.max(_this.visible-1, 1));
 			
@@ -161,7 +159,7 @@
 			});
 		}
 		
-		function _loadOnClick(e) {
+		function loadOnClick(e) {
 			// Event tweaks, since IE wants to go its own way...
 			var event = e || window.event;
 			var target = event.target || event.srcElement;
@@ -203,7 +201,7 @@
 		this.to = function(pos) {
 			_this.position = pos;
 			new TWEEN.Tween(_this)
-				.to({ x:-pos*_this.offset }, config.speed)
+				.to({ xx:-pos*_this.offset }, config.speed)
 				.onUpdate(move)
 				.easing(config.easing)
 				.start();
@@ -211,7 +209,7 @@
 		};
 
 		function move() {
-			list.style.left = _this.x + "px";
+			list.style.left = _this.xx + "px";
 		}
 	};
 	
