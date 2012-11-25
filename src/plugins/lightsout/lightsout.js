@@ -3,6 +3,7 @@
  *
  * Author: Wesley Luyten
  * Version: 1.0 - (2012/06/08)
+ * Version: 1.1 - (2012/11/22)
  */
 
 (function(base) {
