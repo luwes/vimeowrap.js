@@ -12,8 +12,7 @@
 		
 		var options = {
 			position: 'bottom',
-			width: api.config.width,
-			height: 130,
+			size: 130,
 			template: '<a href="{{user_url}}"><img class="portrait" src="{{user_portrait_medium}}"/></a><div class="title"><a href="{{url}}" title="{{title}}">{{title|truncate:20}}</a></div><div class="byline">from <a href="{{user_url}}">{{user_name}}</a> <time datetime="{{upload_date}}">{{upload_date|timesince}} ago</time></div><p class="desc">{{description|truncate:100}}</p>',
 			style: ''
 		};
@@ -52,11 +51,11 @@
 			div.id = api.id + "_infobox";
 			api.container.appendChild(div);
 			base.utils.css(div, {
-				width: config.width,
-				height: config.height,
+				width: this.width,
+				height: this.height,
 				position: 'absolute',
-				left: config.x,
-				top: config.y
+				left: this.x,
+				top: this.y
 			});
 
 			api.events.playlistItem.add(update);
@@ -65,17 +64,16 @@
 		function update(item) {
 
 			div.innerHTML = config.template.populate(item, {
-
+				
 				truncate: function(str, len) {
 					if (str.length > len) {
 						str = str.slice(0, len) + "...";
 					}
 					return str;
 				},
-
 				timesince: function(str) {
-
-					var obj = { second: (new Date().getTime() - new Date(str).getTime()) / 1000 };
+					var tim = new Date(str.replace(/-/g, "/")).getTime();
+					var obj = { second: (new Date().getTime() - tim) / 1000 };
 					var lbl = ["second", "minute", "hour", "day", "week", "month", "year"];
 					var num = [1, 60, 60, 24, 7, 4.34812, 12];
 					for (var i = 1; i < lbl.length; i++) {
