@@ -3,9 +3,10 @@
  *
  * Author: Wesley Luyten
  * Version: 1.1 - (2012/06/07)
+ * Version: 1.2 - (2012/11/23)
  */
 
-(function(window) {
+(function(global) {
 
 	var players = {};
 	var vimeowrap = function(identifier) {
@@ -68,32 +69,71 @@
 			config = vimeowrap.utils.extend(options, c);
 			this.config = config;
 
-			reset();
+			this.container.innerHTML = "";
 			
-			var height = config.height;
-			var displayTop = 0;
+			var bounds = { x:0, y:0, width:config.width, height:config.height };
+			var plugin = null;
+
 			for (var key in config.plugins) {
 				if (typeof vimeowrap[key] === "function") {
-					this.plugins[key] = new vimeowrap[key](this, config.plugins[key]);
-					
-					this.plugins[key].config['y'] = height;
-					height += this.plugins[key].config['height'] || 0;
-					if (this.plugins[key].config['position'] === "top") {
-						this.plugins[key].config['y'] = displayTop;
-						displayTop += this.plugins[key].config['height'];
+					plugin = this.plugins[key] = new vimeowrap[key](this, config.plugins[key]);
+					switch (plugin.config.position) {
+						case "left":
+						case "right":
+							bounds.width += plugin.config.size || 0;
+							plugin.width = plugin.config.size;
+							plugin.height = config.height;
+							break;
+						default:
+							bounds.height += plugin.config.size || 0;
+							plugin.width = config.width;
+							plugin.height = plugin.config.size;
 					}
-
-					this.plugins[key].setup();
 				}
 			}
-			
+
 			vimeowrap.utils.css(this.container, {
-				width: config.width,
-				height: height
+				position: 'relative',
+				width: bounds.width,
+				height: bounds.height
 			});
 
+			for (key in this.plugins) {
+				plugin = this.plugins[key];
+				switch (plugin.config.position) {
+					case "left":
+						plugin.x = bounds.x;
+						bounds.x += plugin.width;
+						bounds.width -= plugin.width;
+						break;
+					case "right":
+						plugin.x = bounds.x + bounds.width - plugin.width;
+						bounds.width -= plugin.width;
+						break;
+					case "top":
+						plugin.y = bounds.y;
+						bounds.y += plugin.height;
+						bounds.height -= plugin.height;
+						break;
+					case "bottom":
+						plugin.y = bounds.y + bounds.height - plugin.height;
+						bounds.height -= plugin.height;
+						break;
+				}
+
+				this.plugins[key].setup();
+			}
+
+			this.display = document.createElement('div');
+			this.display.id = this.id + "_display";
+			this.container.appendChild(this.display);
 			vimeowrap.utils.css(this.display, {
-				top: displayTop
+				background: '#000000',
+				width: bounds.width,
+				height: bounds.height,
+				position: 'absolute',
+				left: bounds.x,
+				top: bounds.y
 			});
 			
 			this.events.playlist.add(playlistLoaded);
@@ -107,26 +147,9 @@
 			playlist = p;
 
 			var item = playlist[config.item];
-			_this.events.playlistItem.dispatch(item);
+			_this.events.playlistItem.dispatch(item, config.item);
 
 			embed(item.url);
-		}
-		
-		function reset() {
-			_this.container.innerHTML = "";
-			vimeowrap.utils.css(_this.container, {
-				position: 'relative'
-			});
-			
-			_this.display = document.createElement('div');
-			_this.display.id = _this.id + "_display";
-			_this.container.appendChild(_this.display);
-			vimeowrap.utils.css(_this.display, {
-				width: config.width,
-				height: config.height,
-				position: 'absolute',
-				background: '#000000'
-			});
 		}
 		
 		function embed(url) {
@@ -234,7 +257,7 @@
 				this.iframe.src = url.slice(0, -1);
 			}
 
-			this.events.playlistItem.dispatch(item);
+			this.events.playlistItem.dispatch(item, index);
 		};
 
 		this.playlistNext = function(autoplay) {
@@ -284,8 +307,12 @@
 		this.getPlugin = function(key) {
 			return this.plugins[key];
 		};
+
+		this.getPlaylist = function() {
+			return playlist;
+		};
 	};
 
-	window.vimeowrap = vimeowrap;
+	global.vimeowrap = vimeowrap;
 
 })(window);
