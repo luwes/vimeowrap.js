@@ -2,39 +2,39 @@
 	
 	base.playlistloader = function(playerApi) {
 		var _this = this;
-		var _index = 0;
-		var _playlist = [];
+		var index = 0;
+		var playlist = [];
 
 		this.load = function(arr) {
-			_this.list = _convert(arr);
-			_load();
-			return _playlist;
+			_this.list = convert(arr);
+			load();
+			return playlist;
 		};
 		
-		function _convert(arr) {
+		function convert(arr) {
 			for (var i = 0; i < arr.length; i++) {
 				var apiV2 = "vimeo.com/api/v2/";
 				arr[i] = arr[i].replace(/vimeo.com\/(\d+)$/i, apiV2 + 'video/$1.json');
-				arr[i] = arr[i].replace(/vimeo.com\/([A-Z0-9]+)$/i, apiV2 + '$1/videos.json');
-				arr[i] = arr[i].replace(/vimeo.com\/groups\/([A-Z0-9]+)$/i, apiV2 + 'group/$1/videos.json');
-				arr[i] = arr[i].replace(/vimeo.com\/channels\/([A-Z0-9]+)$/i, apiV2 + 'channel/$1/videos.json');
-				arr[i] = arr[i].replace(/vimeo.com\/album\/([A-Z0-9]+)$/i, apiV2 + 'album/$1/videos.json');
+				arr[i] = arr[i].replace(/vimeo.com\/([A-Z0-9]+)([\?A-Z0-9=]*)$/i, apiV2 + '$1/videos.json$2');
+				arr[i] = arr[i].replace(/vimeo.com\/groups\/([A-Z0-9]+)([\?A-Z0-9=]*)$/i, apiV2 + 'group/$1/videos.json$2');
+				arr[i] = arr[i].replace(/vimeo.com\/channels\/([A-Z0-9]+)([\?A-Z0-9=]*)$/i, apiV2 + 'channel/$1/videos.json$2');
+				arr[i] = arr[i].replace(/vimeo.com\/album\/([A-Z0-9]+)([\?A-Z0-9=]*)$/i, apiV2 + 'album/$1/videos$2.json');
 			}
 			return arr;
 		}
 		
-		function _load() {
-			base.utils.jsonp(_this.list[_index++], {}, _loaded);
+		function load() {
+			base.utils.jsonp(_this.list[index++], {}, loaded);
 		}
 		
-		function _loaded(json) {
+		function loaded(json) {
 		
-			_playlist = _playlist.concat(json);
+			playlist = playlist.concat(json);
 
-			if (_index < _this.list.length) {
-				_load();
+			if (index < _this.list.length) {
+				load();
 			} else {
-				playerApi.events.playlist.dispatch(_playlist);
+				playerApi.events.playlist.dispatch(playlist);
 				playerApi.events.playlist.remove();
 			}
 		}

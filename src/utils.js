@@ -5,7 +5,7 @@
 	
 	base.utils.jsonp = function(url, params, callback) {
 			
-		var query = "?";
+		var query = url.indexOf('?') === -1 ? "?" : "&";
 		params = params || {};
 		for (var key in params) {
 			if (params.hasOwnProperty(key)) {
@@ -31,7 +31,7 @@
 			}
 		};
 		
-		var head = document.head || document.getElementsByTagName( "head" )[0] || document.documentElement;
+		var head = document.head || document.getElementsByTagName('head')[0] || document.documentElement;
 		// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
 		// This arises when a base node is used (#2709 and #4378).
 		head.insertBefore(script, head.firstChild);
