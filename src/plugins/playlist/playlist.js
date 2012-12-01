@@ -55,7 +55,7 @@
 			if ('ontouchstart' in window) {
 				style.push("li .pressed {background-color:rgba(255,255,255,0.15);}");
 			} else {
-				style.push("li > a:hover {background-color:rgba(255,255,255,0);}");
+				style.push("li > a:hover {background-color:rgba(255,255,255,0); text-decoration:none;}");
 				style.push("li > a:hover .shade {background-color:rgba(255,255,255,0.15);}");
 			}
 			
