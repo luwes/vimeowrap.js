@@ -17,8 +17,8 @@
 		var options = {
 			position: 'bottom',
 			size: 200,
-			offsetx: 0,
-			offsety: 0,
+			offsetx: 2,
+			offsety: 2,
 			autoplay: false,
 			template: '<a href="{{url}}" title="{{title}}"><span class="shade"></span><span class="border"></span><img src="{{thumbnail_' + (config.thumb && config.thumb.quality ? config.thumb.quality : "small") + '}}" alt="" /><span class="title">{{title|truncate:30}}</span><span class="byline">from <b>{{user_name}}</b> <time datetime="{{upload_date}}">{{upload_date|timesince}} ago</time></span><span class="desc">{{description|striptags|truncate:50}}</span><span class="duration">{{duration|time}}</span></a>',
 			style: '',
@@ -35,14 +35,15 @@
 			
 			var style = [
 				"#{{id}} {background-color:#000; color:#fff; font:normal 12px/14px helvetica,arial,sans-serif; -webkit-tap-highlight-color:rgba(0,0,0,0);}",
-				"ul {margin:0; padding:0 9px 0 0;}",
-				"li {clear:both; display:block; height:{{thumb_height}}px; line-height:16px; margin:2px; overflow:hidden;}",
+				"ul {list-style:none; margin:0; padding:0 9px 0 0;}",
+				"li {list-style:none; clear:both; display:block; height:{{thumb_height}}px; line-height:16px; margin:0 0 2px; padding:0; overflow:hidden;}",
+				"li:last-child {margin:0;}",
 				"li.selected {opacity:.4; filter:alpha(opacity=40);}",
 				"li:nth-child(odd) > a {background-color:rgba(255,255,255,.07);}" +
 				"li > a {display:block; position:relative; height:{{thumb_height}}px; text-decoration:none;}",
 				"a:active, #{{id}} a:focus {outline:none;}",
 				"span {color:#fff; display:block;}",
-				".shade {position:absolute;top:0;right:0;bottom:0;left:0;}",
+				".shade {position:absolute; top:0; right:0; bottom:0; left:0;}",
 				"img {border:none; float:left; width:{{thumb_width}}px; height:{{thumb_height}}px; margin:0 7px 0 0;}",
 				".border {box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; position:absolute; left:0; top:0; border-right:rgba(255, 255, 255, .1) 1px solid; width:{{thumb_width}}px; height:{{thumb_height}}px;}",
 				".title {font-weight:bold; padding-top:5px; font-size:14px;}",
@@ -96,7 +97,7 @@
 			div.appendChild(wrap);
 			base.utils.css(wrap, {
 				width: this.width - config.offsetx * 2,
-				height: this.height - config.offsety,
+				height: this.height - config.offsety * 2,
 				position: 'absolute',
 				left: config.offsetx,
 				top: config.offsety
@@ -106,8 +107,7 @@
 			list.id = div.id + "_list";
 			wrap.appendChild(list);
 			base.utils.css(list, {
-				position: 'absolute',
-				'list-style': 'none'
+				position: 'absolute'
 			});
 			list.onclick = loadOnClick;
 

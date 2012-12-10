@@ -192,12 +192,15 @@
 		
 			var allowed = [	'url', 'width', 'maxwidth', 'height', 'maxheight', 'byline',
 							'title', 'portrait', 'color', 'callback', 'autoplay', 'loop',
-							'xhtml', 'api', 'wmode', 'iframe', 'player_id'];
+							'xhtml', 'api', 'wmode', 'iframe', 'player_id',
+							'badge' ];
 
 			for (var i = 0; i < allowed.length; i++) {
 				var key = allowed[i];
 				if (config.hasOwnProperty(key)) {
-					args[key] = config[key];
+					var value = config[key];
+					if (typeof value === "boolean") value = value ? 1 : 0;
+					args[key] = value;
 				}
 			}
 			
@@ -242,7 +245,8 @@
 			var item = playlist[index];
 			var url = 'http://player.vimeo.com/video/' + item.id + '?';
 			var allowed = [	'byline', 'title', 'portrait', 'color',
-							'autoplay', 'loop', 'api', 'player_id'];
+							'autoplay', 'loop', 'api', 'player_id',
+							'badge' ];
 
 			for (var i = 0; i < allowed.length; i++) {
 				var key = allowed[i];
