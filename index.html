@@ -2,24 +2,58 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Vimeo Carousel</title>
+	<link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet'>
+	<link rel="stylesheet" href="css/style.css" media="screen" />
+	<link rel="stylesheet" href="css/print.css" media="print" />
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>{vimeowrap}</title>
 </head>
 <body>
-	<div id="player"></div>
-	<script src="1.2/vimeowrap.js"></script>
-	<script src="1.0/vimeowrap.playlist.js"></script>
-	<script>
-		vimeowrap('player').setup({
-			item: 1,
-			repeat: "single",
-			urls: [
-				'https://vimeo.com/garynadeau',
-				'https://vimeo.com/garynadeau?page=2',
-			],
-			plugins: {
-				'playlist': {}
-			}
-		});
-	</script>
+	<div id="container"><div class="inner">
+
+		<header>
+			<h1><span class="icon-gift"></span> vimeowrap</h1>
+			<h2>a super easy extend-able Vimeo player embedder</h2>
+		</header>
+
+		<hr>
+
+		<section id="main-content">
+			<p>Vimeo wrap is an easy to use Vimeo player embedder that can be <strong>extended with plugins</strong>. <strong>Playlist support</strong> enables you to play videos one after another. The embed code that is used to embed the player in the webpage is retrieved via the <strong>oEmbed protocol</strong>.</p>
+
+			<div id="player"></div>
+			<script src="1.2/vimeowrap.js"></script>
+			<script src="1.0/vimeowrap.playlist.js"></script>
+			<script>
+				vimeowrap('player').setup({
+					urls: [
+						'https://vimeo.com/17950038',
+						'https://vimeo.com/channels/staffpicks'
+					],
+					width: 620,
+					height: 350,
+					repeat: 'list',
+					title: false,
+					byline: false,
+					badge: false,
+					portrait: false,
+					color: '009900',
+					plugins: {
+						'playlist':{}
+					}
+				});
+			</script>
+		</section>
+		<footer class="hr">
+			Crafted with <span class="icon-heart"></span> on the North Pole
+		</footer>
+
+	</div></div>
+
+	<a href="https://github.com/luwes/vimeowrap.js"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub"></a>
+
+	<!-- analytics -->
 </body>
 </html>

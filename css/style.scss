@@ -1,0 +1,259 @@
+@import "reset";
+@import "mixins";
+@import "icomoon";
+
+$red: #D5000D;
+
+
+body {
+  font-size: 1em;
+  line-height: 1.5; 
+  background: whiteSmoke;
+  font-family: 'Helvetica Neue', Helvetica, Arial, serif;
+  color: #6d6d6d;
+}
+
+a {
+  color: #00ac6b;
+}
+a:hover {
+  color: #c5000c;
+}
+
+hr,
+.hr {
+  border: none;
+  background: url(../img/candy-cane.png) 100% 0 repeat-x;
+  height: 1px;
+  line-height: 1px;
+  padding-bottom: 1.4em;
+  position: relative;
+}
+
+hr:after,
+.hr:after {
+  content: url(../img/candy-cane-top.png) no-repeat;
+  position: absolute;
+  top: 0;
+  right: -13px;
+}
+
+strong {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
+}
+
+table {
+  width: 100%;
+  border: 1px solid #ebebeb;
+}
+
+th {
+  font-weight: 500;
+}
+
+td {
+  border: 1px solid #ebebeb;
+  text-align: center; 
+  font-weight: 300;
+}
+
+form {
+  background: #f2f2f2;
+  padding: 20px;
+  
+}
+
+h1 {
+  font-size: 32px;
+} 
+
+h2 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #303030;
+  margin-bottom: 8px;
+} 
+
+h3 {
+  color: $red;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+} 
+ 
+h4 {
+  font-size: 16px;
+  color: #303030;
+  font-weight: bold;
+} 
+
+h5 {
+  font-size: 1em;
+  color: #303030;
+} 
+
+h6 {
+  font-size: .8em;
+  color: #303030;
+} 
+
+p {
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+ 
+a {
+  text-decoration: none;
+}
+
+p a {
+  font-weight: 400;
+}
+
+blockquote {
+  font-size: 1.6em;
+  border-left: 10px solid #e9e9e9;
+  margin-bottom: 20px;
+  padding: 0 0 0 30px;
+}
+
+ul, ol, dl {
+  margin-bottom: 20px;
+}
+
+ul li {
+  list-style: disc inside;
+  padding-left: 20px;
+}
+
+ol li {
+  list-style: decimal inside;
+  padding-left: 3px;
+}
+
+dl dt {
+  color: #303030;
+}
+
+
+/* LAYOUT STYLES */
+header {
+  padding-top: 35px;
+  padding-bottom: 25px;
+  text-align: center;
+}
+
+header h1 {
+  font-family: 'Chivo', 'Helvetica Neue', Helvetica, Arial, serif;
+  font-weight: 900;
+  letter-spacing: -1px;
+  font-size: 51px;
+  color: #303030;
+  line-height: 1.2;
+  margin-right: 10px;
+}
+
+header h1 span {
+  color: $red;
+  position: relative;
+  top: -6px;
+}
+
+header h2 {
+  letter-spacing: -1px;
+  font-size: 24px;
+  color: #aaa;
+  font-weight: normal;
+  line-height: 1.3;
+  text-shadow: 0 1px 0 white;
+}
+
+#container {
+  min-height: 595px;
+}
+
+.inner {
+  width: 620px;
+  margin: 0 auto;
+}
+
+#container .inner img {
+  max-width: 100%;
+}
+
+footer {
+  margin: 40px 0;
+  padding-top: 20px;
+  font-size: 11px;
+  color: #aaa;
+  text-shadow: 0 1px 0 white;
+}
+
+footer span {
+  color: $red;
+}
+
+footer a {
+  color: #666;
+}
+footer a:hover {
+  color: #444;
+}
+
+code, pre {
+  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal;
+  color: #222;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+code {
+  background-color: #f2f2f2;
+  border: solid 1px #ddd;
+  padding: 0 3px;
+}
+
+pre {
+  padding: 20px;
+  background: #303030;
+  color: #f2f2f2;
+  text-shadow: none;
+  overflow: auto;
+}
+pre code {
+  color: #f2f2f2;
+  background-color: #303030;
+  border: none;
+  padding: 0;
+}
+
+/* #Media Queries
+================================================== */
+
+/* Smaller than standard 960 (devices and browsers) */
+@media only screen and (max-width: 959px) {}
+
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) {}
+
+/* All Mobile Sizes (devices and browser) */
+@media only screen and (max-width: 767px) {
+  header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .inner {
+    width: 94%;
+    margin: 0 auto;
+  }
+}
+
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+@media only screen and (min-width: 480px) and (max-width: 767px) {}
+
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+@media only screen and (max-width: 479px) {}

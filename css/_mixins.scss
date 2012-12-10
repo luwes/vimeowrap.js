@@ -1,0 +1,17 @@
+
+@mixin border-radius($value: 3px) {
+	-webkit-border-radius: $value;
+	-moz-border-radius: $value;
+	border-radius: $value;
+
+	// keeps background from busting out of border 
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding;
+	background-clip: padding-box;
+}
+
+@mixin opacity($value: 0.5) {
+	opacity: $value;
+	filter: alpha(opacity= $value * 100 );
+	zoom: 1;
+}
