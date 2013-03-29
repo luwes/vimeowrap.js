@@ -39,7 +39,7 @@
 				"li {list-style:none; clear:both; display:block; height:{{thumb_height}}px; line-height:16px; margin:0 0 2px; padding:0; overflow:hidden;}",
 				"li:last-child {margin:0;}",
 				"li.selected {opacity:.4; filter:alpha(opacity=40);}",
-				"li:nth-child(odd) > a {background-color:rgba(255,255,255,.07);}" +
+				"li:nth-child(odd) > a {background-color:rgba(255,255,255,.07);}",
 				"li > a {display:block; position:relative; height:{{thumb_height}}px; text-decoration:none;}",
 				"a:active, #{{id}} a:focus {outline:none;}",
 				"span {color:#fff; display:block;}",
