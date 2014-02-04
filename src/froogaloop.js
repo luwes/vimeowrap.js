@@ -293,4 +293,4 @@
     // Expose froogaloop to the global object
     return (global.Froogaloop = global.$f = Froogaloop);
 
-})(vimeowrap);
+})(window);
