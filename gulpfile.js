@@ -26,8 +26,44 @@ gulp.task('vimeowrap', function() {
 		.pipe(gulp.dest(''));
 });
 
-gulp.task('watch', function() {
-	gulp.watch(paths.vimeowrap, ['vimeowrap']);
+gulp.task('carousel', function() {
+	gulp.src(paths.carousel)
+		.pipe(concat('vimeowrap.carousel.js'))
+		.pipe(wrap(wrapTemplate))
+		.pipe(uglify())
+		.pipe(gulp.dest(''));
 });
 
-gulp.task('default', ['vimeowrap']);
+gulp.task('infobox', function() {
+	gulp.src(paths.infobox)
+		.pipe(concat('vimeowrap.infobox.js'))
+		.pipe(wrap(wrapTemplate))
+		.pipe(uglify())
+		.pipe(gulp.dest(''));
+});
+
+gulp.task('lightsout', function() {
+	gulp.src(paths.lightsout)
+		.pipe(concat('vimeowrap.lightsout.js'))
+		.pipe(wrap(wrapTemplate))
+		.pipe(uglify())
+		.pipe(gulp.dest(''));
+});
+
+gulp.task('playlist', function() {
+	gulp.src(paths.playlist)
+		.pipe(concat('vimeowrap.playlist.js'))
+		.pipe(wrap(wrapTemplate))
+		.pipe(uglify())
+		.pipe(gulp.dest(''));
+});
+
+gulp.task('watch', function() {
+	gulp.watch(paths.vimeowrap, ['vimeowrap']);
+	gulp.watch(paths.carousel, ['carousel']);
+	gulp.watch(paths.infobox, ['infobox']);
+	gulp.watch(paths.lightsout, ['lightsout']);
+	gulp.watch(paths.playlist, ['playlist']);
+});
+
+gulp.task('default', ['vimeowrap', 'carousel', 'infobox', 'lightsout', 'playlist']);
