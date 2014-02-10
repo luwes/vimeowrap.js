@@ -118,7 +118,9 @@ vimeowrap.playlist = function(api, config) {
 		list.id = div.id + '_list';
 		wrap.appendChild(list);
 		vimeowrap.utils.css(list, {
-			position: 'absolute'
+			position: 'absolute',
+			left: 0,
+			right: 0
 		});
 		list.onclick = loadOnClick;
 
