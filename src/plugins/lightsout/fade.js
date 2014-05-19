@@ -10,23 +10,23 @@ var Fade = function(element, time, dark, callback) {
 	var _this = this;
 	var interval;
 	
-	var supportOpacity = "opacity" in this.element.style;
+	var supportOpacity = 'opacity' in this.element.style;
 	if (!supportOpacity) this.element.style.zoom = 1;
     
 	function setOpacity(o) {
 		_this.element.style.opacity = "" + o;
-		_this.element.style.filter = "alpha(opacity=" + Math.round(o*100) + ")";
+		_this.element.style.filter = 'alpha(opacity=' + Math.round(o*100) + ')';
 		_this.opacity = o;
 
 		//force repaint, Chrome bug
-		_this.element.style.display = "none";
+		_this.element.style.display = 'none';
 		repaint = _this.element.offsetHeight;
 		_this.element.style.display = "";
 	}
 
 	this.off = function() {
-		if (typeof callback === "function") callback();
-		_this.element.style.display = "block";
+		if (typeof callback === 'function') callback();
+		_this.element.style.display = 'block';
 		clearInterval(interval);
 		var t0 = new Date().getTime();
 		var o0 = _this.opacity;
@@ -49,7 +49,7 @@ var Fade = function(element, time, dark, callback) {
 			if (dt >=1) {
 				dt = 1;
 				clearInterval(interval);
-				_this.element.style.display = "none";
+				_this.element.style.display = 'none';
 			}
 			setOpacity(0*dt+o0*(1-dt));
 		}, 1000 / 60);

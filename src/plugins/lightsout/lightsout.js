@@ -26,22 +26,22 @@ vimeowrap.lightsout = function(api, config) {
 	this.setup = function() {
 		
 		shade = document.createElement('div');
-		shade.className += " lightsout_shade";
-		shade.style.display = "none";
-		shade.style.backgroundColor = "#" + config.backgroundcolor;
+		shade.className += ' lightsout_shade';
+		shade.style.display = 'none';
+		shade.style.backgroundColor = '#' + config.backgroundcolor;
 		shade.style.zIndex = 300;
 		shade.style.opacity = 0;
-		shade.style.filter = "alpha(opacity=0)";
+		shade.style.filter = 'alpha(opacity=0)';
 		shade.style.top = 0;
 		shade.style.left = 0;
 		shade.style.bottom = 0;
 		shade.style.right = 0;
 		if (config.parentid) {
-			shade.style.position = "absolute";
-			document.getElementById(config.parentid).style.position = "relative";
+			shade.style.position = 'absolute';
+			document.getElementById(config.parentid).style.position = 'relative';
 			document.getElementById(config.parentid).appendChild(shade);
 		} else {
-			shade.style.position = "fixed";
+			shade.style.position = 'fixed';
 			document.body.appendChild(shade);
 		}
 
@@ -82,7 +82,7 @@ vimeowrap.lightsout = function(api, config) {
 	function sortPlayers() {
 		var players = vimeowrap.getPlayers();
 		for (var key in players) {
-			players[key].display.style.zIndex = "auto";
+			players[key].display.style.zIndex = 'auto';
 		}
 		api.display.style.zIndex = 301;
 	}
