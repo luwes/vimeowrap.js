@@ -1,7 +1,7 @@
 
-var Fade = function(element, time, dark, callback) {
+var Fade = function(el, time, dark, callback) {
 	
-	this.element = element;
+	this.el = el;
 	this.time = time || 1000;
 	this.dark = dark || 0.8;
 	
@@ -10,28 +10,28 @@ var Fade = function(element, time, dark, callback) {
 	var _this = this;
 	var interval;
 	
-	var supportOpacity = 'opacity' in this.element.style;
-	if (!supportOpacity) this.element.style.zoom = 1;
+	var supportOpacity = 'opacity' in this.el.style;
+	if (!supportOpacity) this.el.style.zoom = 1;
     
 	function setOpacity(o) {
-		_this.element.style.opacity = "" + o;
-		_this.element.style.filter = 'alpha(opacity=' + Math.round(o*100) + ')';
+		_this.el.style.opacity = "" + o;
+		_this.el.style.filter = 'alpha(opacity=' + Math.round(o*100) + ')';
 		_this.opacity = o;
 
 		//force repaint, Chrome bug
-		_this.element.style.display = 'none';
-		repaint = _this.element.offsetHeight;
-		_this.element.style.display = "";
+		_this.el.style.display = 'none';
+		repaint = _this.el.offsetHeight;
+		_this.el.style.display = "";
 	}
 
 	this.off = function() {
 		if (typeof callback === 'function') callback();
-		_this.element.style.display = 'block';
+		_this.el.style.display = 'block';
 		clearInterval(interval);
-		var t0 = new Date().getTime();
+		var t0 = +new Date();
 		var o0 = _this.opacity;
 		interval = setInterval(function() {
-			var dt = (new Date().getTime()-t0)/_this.time;
+			var dt = (new Date()-t0)/_this.time;
 			if (dt >=1) {
 				dt = 1;
 				clearInterval(interval);
@@ -42,14 +42,14 @@ var Fade = function(element, time, dark, callback) {
 	
 	this.on = function() {
 		clearInterval(interval);
-		var t0 = new Date().getTime();
+		var t0 = +new Date();
 		var o0 = _this.opacity;
 		interval = setInterval(function() {
-			var dt = (new Date().getTime()-t0)/_this.time;
+			var dt = (new Date()-t0)/_this.time;
 			if (dt >=1) {
 				dt = 1;
 				clearInterval(interval);
-				_this.element.style.display = 'none';
+				_this.el.style.display = 'none';
 			}
 			setOpacity(0*dt+o0*(1-dt));
 		}, 1000 / 60);
