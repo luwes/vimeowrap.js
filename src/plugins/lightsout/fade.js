@@ -17,6 +17,11 @@ var Fade = function(element, time, dark, callback) {
 		_this.element.style.opacity = "" + o;
 		_this.element.style.filter = "alpha(opacity=" + Math.round(o*100) + ")";
 		_this.opacity = o;
+
+		//force repaint, Chrome bug
+		_this.element.style.display = "none";
+		repaint = _this.element.offsetHeight;
+		_this.element.style.display = "";
 	}
 
 	this.off = function() {
