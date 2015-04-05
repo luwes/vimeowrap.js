@@ -155,7 +155,7 @@ vimeowrap.api = function(container) {
 	
 	function embed(url) {
 
-		utils.jsonp('http://vimeo.com/api/oembed.json', getEmbedArgs({ url:url }), function(json) {
+		utils.jsonp('https://vimeo.com/api/oembed.json', getEmbedArgs({ url:url }), function(json) {
 
 			var temp = document.createElement('div');
 			temp.innerHTML = json.html;
@@ -244,7 +244,7 @@ vimeowrap.api = function(container) {
 		}
 		
 		var item = playlist[index];
-		var url = 'http://player.vimeo.com/video/' + item.id + '?';
+		var url = 'https://player.vimeo.com/video/' + item.id + '?';
 		var allowed = [	'byline', 'title', 'portrait', 'color',
 						'autoplay', 'loop', 'api', 'player_id',
 						'badge' ];
