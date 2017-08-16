@@ -11,7 +11,7 @@ vimeowrap is an easy to use Vimeo player embedder that can be extended with plug
 ### Basic
 ``` html
 <div id="player"></div>
-<script src="http://luwes.co/vimeowrap.js/vimeowrap.js"></script>
+<script src="https://luwes.github.io/vimeowrap.js/vimeowrap.js"></script>
 <script>
 	vimeowrap('player').setup({
 		urls: [
@@ -24,8 +24,8 @@ vimeowrap is an easy to use Vimeo player embedder that can be extended with plug
 ### Carousel Plugin
 ``` html
 <div id="player"></div>
-<script src="http://luwes.co/vimeowrap.js/vimeowrap.js"></script>
-<script src="http://luwes.co/vimeowrap.js/vimeowrap.carousel.js"></script>
+<script src="https://luwes.github.io/vimeowrap.js/vimeowrap.js"></script>
+<script src="https://luwes.github.io/vimeowrap.js/vimeowrap.carousel.js"></script>
 <script>
 	vimeowrap('player').setup({
 		urls: [
