@@ -58,8 +58,8 @@ vimeowrap.api = function(container) {
 	this.setup = function(c) {
 	
 		var options = {
-			width: 480,
-			height: 270,
+			width: 800,
+			height: 450,
 			color: "00adef",
 			repeat: "none",
 			item: 0,
@@ -95,8 +95,8 @@ vimeowrap.api = function(container) {
 
 		utils.css(this.container, {
 			position: 'relative',
-			width: bounds.width,
-			height: bounds.height
+			width: '100%',
+			height: 'auto'
 		});
 
 		for (key in this.plugins) {
@@ -127,12 +127,17 @@ vimeowrap.api = function(container) {
 
 		this.display = document.createElement('div');
 		this.display.id = this.id + "_display";
-		this.container.appendChild(this.display);
+//		this.container.appendChild(this.display);
+		utils.prepend(this.display, this.container);
+//		console.log("player_display appended to "+this.container);
+		this.wrapper = document.createElement('div');
+		this.wrapper.className = "embed-responsive embed-responsive-16by9";
+		this.display.appendChild(this.wrapper);
 		utils.css(this.display, {
 			background: '#000000',
-			width: bounds.width,
-			height: bounds.height,
-			position: 'absolute',
+			width: '100%',
+			height: 'auto',
+			position: 'relative',
 			left: bounds.x,
 			top: bounds.y
 		});
@@ -177,7 +182,7 @@ vimeowrap.api = function(container) {
 				_this.iframe.onload = showPlayer;
 			}
 			
-			utils.prepend(_this.iframe, _this.display);
+			utils.prepend(_this.iframe, _this.wrapper);
 					
 			Froogaloop(_this.iframe.id).addEvent('ready', function() {
 

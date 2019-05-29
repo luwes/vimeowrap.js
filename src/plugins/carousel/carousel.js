@@ -14,7 +14,7 @@ vimeowrap.carousel = function(api, config) {
 	
 	var options = {
 		position: 'bottom',
-		size: 130,
+		size: 180,
 		offsetx: 50,
 		offsety: 10,
 		autoplay: false,
@@ -23,10 +23,13 @@ vimeowrap.carousel = function(api, config) {
 		easing: TWEEN.Easing.Exponential.EaseInOut,
 		speed: 250,
 		thumb: {
-			width: 100,
-			height: 75
+			width: 160,
+			height: 90
 		}
 	};
+
+	var containerWidth = api.container.offsetWidth;
+	//console.log(containerWidth);
 
 	config = vimeowrap.utils.extend(options, config);
 	this.config = config;
@@ -49,9 +52,11 @@ vimeowrap.carousel = function(api, config) {
 					"#{{id}} ul {margin:0;padding:0;}" +
 					"#{{id}} ul li {display:block;float:left;width:{{thumb_width}}px;line-height:14px;}" +
 					"#{{id}} ul li a {display:block;color:#{{color}};text-align:center;}" +
-					"#{{id}} ul li a img {border:none;width:{{thumb_width}}px;height:{{thumb_height}}px;}" +
+					"#{{id}} ul li a img {border:none;width:{{thumb_width}}px;height:{{thumb_height}}px;margin-bottom: 5px;}" +
 					
-					"#{{id}}_navleft, #{{id}}_navright {color:#000;display:block;font-family:'Pictish';font-size:19px;position:absolute;top:32px;width:20px;height:19px;padding:10px;}" +
+					"#{{id}}_navleft, #{{id}}_navright {color:#000;display:block;font-family:'Pictish';font-size:19px;position:absolute;top:calc({{thumb_height}}px/2);width:20px;height:19px;padding:10px;}" +
+					"#{{id}}_navright span, #{{id}}_navleft span {position:absolute; top:0; left:0}" +
+					"#{{id}}_navleft {left:0;}" +
 					"#{{id}}_navright {right:0;}";
 
 		if ('ontouchstart' in window) {
@@ -84,12 +89,13 @@ vimeowrap.carousel = function(api, config) {
 		div = document.createElement('div');
 		div.id = api.id + "_carousel";
 		api.container.appendChild(div);
+		//console.log("player_carousel appended to "+api.container);
 		vimeowrap.utils.css(div, {
-			width: this.width,
+			width: '100%',
 			height: this.height,
-			position: 'absolute',
-			left: this.x,
-			top: this.y
+			position: 'relative',
+			left: 0,
+			top: 0
 		});
 		new NoClickDelay(div);
 		
@@ -97,10 +103,10 @@ vimeowrap.carousel = function(api, config) {
 		wrap.id = div.id + "_wrap";
 		div.appendChild(wrap);
 		vimeowrap.utils.css(wrap, {
-			width: this.width - config.offsetx * 2,
+			width: containerWidth - config.offsetx * 2,
 			height: this.height - config.offsety,
 			overflow: 'hidden',
-			position: 'absolute',
+			position: 'relative',
 			left: config.offsetx,
 			top: config.offsety
 		});
@@ -110,7 +116,7 @@ vimeowrap.carousel = function(api, config) {
 		wrap.appendChild(list);
 		vimeowrap.utils.css(list, {
 			height: this.height,
-			position: 'absolute',
+			position: 'relative',
 			'list-style': 'none'
 		});
 		list.onclick = loadOnClick;
@@ -135,10 +141,13 @@ vimeowrap.carousel = function(api, config) {
 	function parse(playlist) {
 		
 		_this.length = playlist.length;
-
 		var listWidth = _this.width - config.offsetx * 2;
-		_this.visible = config.visible > 0 ? config.visible : Math.floor(listWidth / config.thumb.width);
-		var marginRight = Math.round((listWidth - _this.visible * config.thumb.width) / Math.max(_this.visible-1, 1));
+		var scrollWidth = (containerWidth - (config.offsetx * 2));
+		_this.visible = config.visible > 0 ? config.visible : Math.floor(scrollWidth / config.thumb.width);
+		var marginRight = Math.round((scrollWidth - _this.visible * config.thumb.width) / Math.max(_this.visible-1, 1));
+		
+		//console.log("Visible:" + scrollWidth +"/"+ config.thumb.width +"="+ _this.visible);
+		//console.log(marginRight);
 		
 		var html = [];
 		var template = config.template;
