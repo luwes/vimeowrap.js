@@ -1,3 +1,7 @@
+# Deprecated!
+
+See https://github.com/playerxo/playerx for the evolution of this project!
+
 # vimeowrap.js
 
 vimeowrap is an easy to use Vimeo player embedder that can be extended with plugins.
